@@ -1,11 +1,15 @@
-# Use an official base image with Java 8 installed
-FROM openjdk:8-jdk
+# Use a base image with JDK installed, required for Tomcat and Maven
+FROM openjdk:8
 
 # Set environment variables
 ENV CATALINA_HOME /usr/local/tomcat7
+ENV M2_HOME /opt/apache-maven-3.6.3
+ENV MAVEN_HOME /opt/apache-maven-3.6.3
+ENV PATH $CATALINA_HOME/bin:$M2_HOME/bin:$PATH
 
 # Install required packages
-RUN apt-get update && apt-get install -y wget
+RUN apt-get update && \
+    apt-get install -y wget git
 
 # Download and install Tomcat 7
 RUN wget https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.109/bin/apache-tomcat-7.0.109.tar.gz -O /tmp/tomcat7.tar.gz && \
@@ -13,15 +17,24 @@ RUN wget https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.109/bin/apache-tom
     mv /tmp/apache-tomcat-7.0.109 $CATALINA_HOME && \
     rm /tmp/tomcat7.tar.gz
 
+# Download and install Maven
+RUN wget https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz -O /tmp/maven.tar.gz && \
+    tar -xvzf /tmp/maven.tar.gz -C /opt && \
+    rm /tmp/maven.tar.gz
+
+# Clone the repository
+RUN git clone https://github.com/Marco444/LendARead2.git /usr/src/LendARead2
+
+# Change the working directory
+WORKDIR /usr/src/LendARead2
+
+# Compile the application
+RUN mvn clean install -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+
 # Expose the port Tomcat will run on
 EXPOSE 8080
 
-# Set PATH environment variable
-ENV PATH $CATALINA_HOME/bin:$PATH
-
-# Allow traffic on port 8080 (optional step, usually handled by Docker host)
-# RUN ufw allow 8080
-
 # Set the default command to run when starting the container
 CMD ["catalina.sh", "run"]
+
 
