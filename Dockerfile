@@ -1,6 +1,13 @@
 # Use a base image with JDK installed, required for Tomcat and Maven
 FROM openjdk:8
 
+# Set environment variables for the application
+ENV VITE_APP_BASE_PATH='/webapp' \
+    VITE_APP_BASE_URL='http://52.87.87.66:8080' \
+    DB_URL_ENV="jdbc:postgresql://database-1.ct80qs8yuayi.us-east-1.rds.amazonaws.com:5432/" \
+    DB_USERNAME_ENV="postgres" \
+    DB_PASSWORD_ENV="1SRcd8pto"
+
 # Set environment variables
 ENV CATALINA_HOME /usr/local/tomcat7
 ENV M2_HOME /opt/apache-maven-3.6.3
@@ -23,13 +30,17 @@ RUN wget https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-mav
     rm /tmp/maven.tar.gz
 
 # Clone the repository
-RUN git clone https://github.com/Marco444/LendARead2.git /usr/src/LendARead2
+RUN git config --global http.postBuffer 1048576000  # Set buffer to 1000MB
+RUN for i in {1..5}; do git clone https://github.com/Marco444/LendARead2.git /usr/src/LendARead2 && break || sleep 5; done
 
 # Change the working directory
 WORKDIR /usr/src/LendARead2
 
 # Compile the application
-RUN mvn clean install -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+RUN mvn clean install -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true
+
+# Move the WAR file to Tomcat's webapps directory
+RUN mv /usr/src/LendARead2/webapp/target/webapp.war $CATALINA_HOME/webapps/
 
 # Expose the port Tomcat will run on
 EXPOSE 8080
