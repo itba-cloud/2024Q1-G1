@@ -1,10 +1,33 @@
+
+# Private Subnets
+resource "aws_subnet" "subnet_private1" {
+  vpc_id            = aws_vpc.lendaread_vpc.id
+  cidr_block        = "10.0.3.0/24"
+  availability_zone = "us-east-1a"
+
+  tags = {
+    Name = "Private Subnet 1"
+  }
+}
+
+resource "aws_subnet" "subnet_private2" {
+  vpc_id            = aws_vpc.lendaread_vpc.id
+  cidr_block        = "10.0.4.0/24"
+  availability_zone = "us-east-1b"
+
+  tags = {
+    Name = "Private Subnet 2"
+  }
+}
+
+
 # Elastic IPs for NAT Gateways
 resource "aws_eip" "nat_eip1" {
-  vpc = true
+  domain = "vpc"
 }
 
 resource "aws_eip" "nat_eip2" {
-  vpc = true
+  domain = "vpc"
 }
 
 # NAT Gateways
