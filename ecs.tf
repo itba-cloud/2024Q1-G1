@@ -1,8 +1,8 @@
-resource "aws_ecs_cluster" "lendaread-tf-cluster" {
-  name = "lendaread-tf-cluster" 
+resource "aws_ecs_cluster" "lendaread_cluster" {
+  name = "lendaread_cluster" 
 }
 
-resource "aws_ecs_task_definition" "lendaread-api" {
+resource "aws_ecs_task_definition" "lendaread_api_task" {
   family                   = "lendaread-tasks"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
@@ -24,5 +24,25 @@ resource "aws_ecs_task_definition" "lendaread-api" {
       ]
     }
   ])
+}
+
+resource "aws_ecs_service" "lendaread_service" {
+  name            = "lendaread_service"
+  cluster         = aws_ecs_cluster.lendaread_cluster.id
+  task_definition = aws_ecs_task_definition.lendaread_api_task.arn
+  desired_count   = 1
+
+  launch_type = "FARGATE"
+
+  network_configuration {
+    subnets          = ["subnet-xxxxxx", "subnet-yyyyyy"]  # Specify your subnets
+    security_groups  = ["sg-xxxxxx"]                       # Specify your security group
+    assign_public_ip = true
+  }
+
+  depends_on = [
+    aws_ecr_repository.lendaread_ecr,
+    aws_ecs_task_definition.lendaread_api_task
+  ]
 }
 

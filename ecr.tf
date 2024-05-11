@@ -1,5 +1,5 @@
-resource "aws_ecr_repository" "lendaread-tf" {
-  name                 = "lendaread-tf"  # Change this to your preferred repository name
+resource "aws_ecr_repository" "lendaread_ecr" {
+  name                 = "lendaread_ecr"
   image_tag_mutability = "MUTABLE"
 
   image_scanning_configuration {
