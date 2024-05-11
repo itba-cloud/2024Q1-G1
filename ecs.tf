@@ -26,10 +26,10 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
       ]
       environment = [
         { name = "VITE_APP_BASE_PATH", value = "/webapp" },
-        { name = "VITE_APP_BASE_URL", value = "http://3.213.137.227:8080" },
-        { name = "DB_URL_ENV", value = "jdbc:postgresql://database-2.ct80qs8yuayi.us-east-1.rds.amazonaws.com:5432/" },
-        { name = "DB_USERNAME_ENV", value = "postgres" },
-        { name = "DB_PASSWORD_ENV", value = "132holastf" } 
+        { name = "VITE_APP_BASE_URL", value = "http://${aws_lb.lendaread_alb.dns_name}" },
+        { name = "DB_URL_ENV", value = "jdbc:postgresql://${aws_db_instance.lendaread_db.endpoint}/" },
+        { name = "DB_USERNAME_ENV", value = "${aws_db_instance.lendaread_db.username}" },
+        { name = "DB_PASSWORD_ENV", value = "${aws_db_instance.lendaread_db.password}" }  # Consider using AWS Secrets Manager for this
       ]
     }
   ])
