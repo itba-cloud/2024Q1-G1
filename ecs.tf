@@ -15,8 +15,8 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
     {
       name      = "lendaread-container"
       image     = "${aws_ecr_repository.lendaread_ecr.repository_url}:latest"
-      cpu       = 256
-      memory    = 512
+      cpu       = 1024
+      memory    = 1536
       essential = true
       portMappings = [
         {
