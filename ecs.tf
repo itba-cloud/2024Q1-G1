@@ -6,10 +6,10 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
   family                   = "lendaread-tasks"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "256"   # Specify the CPU units
-  memory                   = "512"   # Specify the memory
-  execution_role_arn    = data.aws_iam_role.lab_role.arn
-  task_role_arn         = data.aws_iam_role.lab_role.arn
+  cpu                      = "256"
+  memory                   = "512"
+  execution_role_arn       = data.aws_iam_role.lab_role.arn
+  task_role_arn            = data.aws_iam_role.lab_role.arn
 
   container_definitions = jsonencode([
     {
@@ -23,6 +23,13 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
           containerPort = 80
           hostPort      = 80
         }
+      ]
+      environment = [
+        { name = "VITE_APP_BASE_PATH", value = "/webapp" },
+        { name = "VITE_APP_BASE_URL", value = "http://3.213.137.227:8080" },
+        { name = "DB_URL_ENV", value = "jdbc:postgresql://database-2.ct80qs8yuayi.us-east-1.rds.amazonaws.com:5432/" },
+        { name = "DB_USERNAME_ENV", value = "postgres" },
+        { name = "DB_PASSWORD_ENV", value = "132holastf" } 
       ]
     }
   ])
