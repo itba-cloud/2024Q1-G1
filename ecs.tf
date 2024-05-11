@@ -1,18 +1,18 @@
 resource "aws_cloudwatch_log_group" "lendaread_log_group" {
-  name = "/ecs/lendaread"
+  name              = "/ecs/lendaread"
   retention_in_days = 14
 }
 
 resource "aws_ecs_cluster" "lendaread_cluster" {
-  name = "lendaread_cluster" 
+  name = "lendaread_cluster"
 }
 
 resource "aws_ecs_task_definition" "lendaread_api_task" {
   family                   = "lendaread-tasks"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "1024"  # 1 vCPU
-  memory                   = "2048"  # 2 GiB
+  cpu                      = "1024" # 1 vCPU
+  memory                   = "2048" # 2 GiB
   execution_role_arn       = data.aws_iam_role.lab_role.arn
   task_role_arn            = data.aws_iam_role.lab_role.arn
 
@@ -30,8 +30,8 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
       essential = true
       portMappings = [
         {
-          containerPort = 80
-          hostPort      = 80
+          containerPort = 8080
+          hostPort      = 8080
         }
       ]
       environment = [
@@ -39,7 +39,7 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
         { name = "VITE_APP_BASE_URL", value = "http://${aws_lb.lendaread_alb.dns_name}" },
         { name = "DB_URL_ENV", value = "jdbc:postgresql://${aws_db_instance.lendaread_db.endpoint}/" },
         { name = "DB_USERNAME_ENV", value = "${aws_db_instance.lendaread_db.username}" },
-        { name = "DB_PASSWORD_ENV", value = "${aws_db_instance.lendaread_db.password}" }  # Consider using AWS Secrets Manager for this
+        { name = "DB_PASSWORD_ENV", value = "${aws_db_instance.lendaread_db.password}" } # Consider using AWS Secrets Manager for this
       ],
       logConfiguration = {
         logDriver = "awslogs",
@@ -69,7 +69,7 @@ resource "aws_ecs_service" "lendaread_service" {
   load_balancer {
     target_group_arn = aws_lb_target_group.lendaread_tg.arn
     container_name   = "lendaread-container"
-    container_port   = 80
+    container_port   = 8080
   }
 
   depends_on = [
