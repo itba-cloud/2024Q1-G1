@@ -46,6 +46,5 @@ RUN mv /usr/src/LendARead2/webapp/target/webapp.war $CATALINA_HOME/webapps/
 EXPOSE 8080
 
 # Set the default command to run when starting the container
-CMD ["catalina.sh", "run"]
-
+CMD ["/usr/local/tomcat7/bin/catalina.sh", "run"]
 

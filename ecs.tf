@@ -1,3 +1,8 @@
+resource "aws_cloudwatch_log_group" "lendaread_log_group" {
+  name = "/ecs/lendaread"
+  retention_in_days = 14
+}
+
 resource "aws_ecs_cluster" "lendaread_cluster" {
   name = "lendaread_cluster" 
 }
@@ -30,7 +35,15 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
         { name = "DB_URL_ENV", value = "jdbc:postgresql://${aws_db_instance.lendaread_db.endpoint}/" },
         { name = "DB_USERNAME_ENV", value = "${aws_db_instance.lendaread_db.username}" },
         { name = "DB_PASSWORD_ENV", value = "${aws_db_instance.lendaread_db.password}" }  # Consider using AWS Secrets Manager for this
-      ]
+      ],
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group         = aws_cloudwatch_log_group.lendaread_log_group.name,
+          awslogs-region        = "us-east-1",
+          awslogs-stream-prefix = "ecs"
+        }
+      }
     }
   ])
 }
