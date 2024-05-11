@@ -17,7 +17,7 @@ resource "aws_db_instance" "lendaread_db" {
   engine            = "postgres"
   engine_version    = "16.1"
   username          = "postgres"
-  password          = "132htf#"  # Consider using AWS Secrets Manager
+  password          = "132holastf#"  # Consider using AWS Secrets Manager
   db_subnet_group_name    = aws_db_subnet_group.my_db_subnet_group.name
   vpc_security_group_ids  = [aws_security_group.rds_sg.id]
   multi_az                = false

@@ -37,8 +37,8 @@ resource "aws_ecs_service" "lendaread_service" {
   launch_type = "FARGATE"
 
   network_configuration {
-    subnets          = ["aws_subnet.subnet_public1", "aws_subnet.subnet_public2"] 
-    security_groups  = ["lendaread_api_task_sg"]           
+    subnets          = [aws_subnet.subnet_public1.id, aws_subnet.subnet_public2.id]
+    security_groups  = [aws_security_group.lendaread_api_task_sg.id]
     assign_public_ip = true
   }
 
@@ -47,4 +47,3 @@ resource "aws_ecs_service" "lendaread_service" {
     aws_ecs_task_definition.lendaread_api_task
   ]
 }
-
