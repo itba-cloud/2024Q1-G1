@@ -62,10 +62,10 @@ resource "aws_security_group" "rds_sg" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = [aws_security_group.lendaread_api_task_sg.id]
+    from_port       = 0
+    to_port         = 0
+    protocol        = "-1"
+    security_groups = [aws_security_group.lendaread_api_task_sg.id]
   }
 
   tags = {
