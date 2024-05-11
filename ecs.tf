@@ -8,6 +8,8 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"   # Specify the CPU units
   memory                   = "512"   # Specify the memory
+  execution_role_arn    = data.aws_iam_role.lab_role.arn
+  task_role_arn         = data.aws_iam_role.lab_role.arn
 
   container_definitions = jsonencode([
     {
