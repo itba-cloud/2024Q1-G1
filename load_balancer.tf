@@ -2,7 +2,7 @@ resource "aws_lb" "lendaread_alb" {
   name               = "lendaread-alb"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]
+  security_groups    = [aws_security_group.lendaread_lb_sg.id]
   subnets            = [aws_subnet.subnet_public1.id, aws_subnet.subnet_public2.id]
 
   enable_deletion_protection = false

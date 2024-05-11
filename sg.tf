@@ -1,3 +1,36 @@
+# Security Group for LB
+resource "aws_security_group" "lendaread_lb_sg" {
+  name        = "lb-security-group"
+  description = "Security group for Load Balancer"
+  vpc_id      = aws_vpc.lendaread_vpc.id
+
+  # Inbound rules: Allow HTTP and HTTPS traffic
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  # Outbound rules: Allow all outbound traffic
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "Load Balancer SG"
+  }
+}
+
 # Security Group for ECS tasks
 resource "aws_security_group" "lendaread_api_task_sg" {
   name        = "lendaread_api_sg"
@@ -6,10 +39,10 @@ resource "aws_security_group" "lendaread_api_task_sg" {
 
   # Inbound rules
   ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port       = 8080
+    to_port         = 8080
+    protocol        = "tcp"
+    security_groups = [aws_security_group.lendaread_lb_sg.id]
   }
 
   # Outbound rules - Allow all outbound traffic by default
@@ -32,7 +65,7 @@ resource "aws_security_group" "rds_sg" {
   vpc_id      = aws_vpc.lendaread_vpc.id
 
   ingress {
-    from_port       = 5432  # PostgreSQL default port
+    from_port       = 5432 # PostgreSQL default port
     to_port         = 5432
     protocol        = "tcp"
     security_groups = [aws_security_group.lendaread_api_task_sg.id]
