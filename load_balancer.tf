@@ -33,7 +33,7 @@ resource "aws_security_group" "alb_sg" {
 }
 resource "aws_lb_target_group" "lendaread_tg" {
   name     = "lendaread-tg"
-  port     = 80
+  port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.lendaread_vpc.id
   target_type = "ip"  
