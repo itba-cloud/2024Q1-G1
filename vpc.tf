@@ -6,7 +6,7 @@ resource "aws_vpc" "lendaread-vpc-tf" {
   tags = {
     Name = "Lendaread VPC"
   }
-
+}
 
 resource "aws_internet_gateway" "lendaread-gw" {
   vpc_id = aws_vpc.my_vpc.id
