@@ -9,7 +9,7 @@ resource "aws_vpc" "lendaread_vpc" {
 }
 
 resource "aws_internet_gateway" "lendaread_gw" {
-  vpc_id = aws_vpc.my_vpc.id
+  vpc_id = aws_vpc.lendaread_vpc.id
 
   tags = {
     Name = "Lendaread Internet Gateway"

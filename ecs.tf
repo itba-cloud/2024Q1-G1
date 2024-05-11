@@ -12,7 +12,7 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
   container_definitions = jsonencode([
     {
       name      = "lendaread-container"
-      image     = "${aws_ecr_repository.my_repository.repository_url}:latest"
+      image     = "${aws_ecr_repository.lendaread_ecr.repository_url}:latest"
       cpu       = 256
       memory    = 512
       essential = true
@@ -35,8 +35,8 @@ resource "aws_ecs_service" "lendaread_service" {
   launch_type = "FARGATE"
 
   network_configuration {
-    subnets          = ["subnet-xxxxxx", "subnet-yyyyyy"]  # Specify your subnets
-    security_groups  = ["sg-xxxxxx"]                       # Specify your security group
+    subnets          = ["subnet_public1", "subnet_public2"] 
+    security_groups  = ["lendaread_api_task_sg"]           
     assign_public_ip = true
   }
 
