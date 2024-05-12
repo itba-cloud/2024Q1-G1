@@ -1,11 +1,11 @@
 resource "aws_lb" "lendaread_alb" {
-  name               = var.alb_name
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.alb_sg.id]
-  subnets            = var.public_subnets
+  name                       = var.alb_name
+  internal                   = false
+  load_balancer_type         = "application"
+  security_groups            = [aws_security_group.alb_sg.id]
+  subnets                    = var.public_subnets
   enable_deletion_protection = false
-  tags               = var.tags
+  tags                       = var.tags
 }
 
 resource "aws_security_group" "alb_sg" {
@@ -14,8 +14,8 @@ resource "aws_security_group" "alb_sg" {
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -29,10 +29,10 @@ resource "aws_security_group" "alb_sg" {
 }
 
 resource "aws_lb_target_group" "lendaread_tg" {
-  name     = var.target_group_name
-  port     = 80
-  protocol = "HTTP"
-  vpc_id   = var.vpc_id
+  name        = var.target_group_name
+  port        = 8080
+  protocol    = "HTTP"
+  vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
@@ -53,7 +53,7 @@ resource "aws_lb_target_group" "lendaread_tg" {
 
 resource "aws_lb_listener" "listener" {
   load_balancer_arn = aws_lb.lendaread_alb.arn
-  port              = 80
+  port              = 8080
   protocol          = "HTTP"
 
   default_action {
