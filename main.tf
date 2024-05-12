@@ -25,10 +25,11 @@ module "ecs" {
 module "alb" {
   source            = "./modules/alb"
   vpc_id            = aws_vpc.lendaread_vpc.id
+  alb_sg            = module.security_groups.lb_security_group_id
   public_subnets    = [aws_subnet.subnet_public1.id, aws_subnet.subnet_public2.id]
   alb_name          = "lendaread-alb"
   target_group_name = "lendaread-tg"
-  health_check_path = "/health"
+  health_check_path = "/"
   tags = {
     Name = "lendaread-alb"
   }

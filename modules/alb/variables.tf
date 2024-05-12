@@ -8,6 +8,11 @@ variable "public_subnets" {
   description = "List of subnet IDs for the ALB to be attached to."
 }
 
+variable "alb_sg" {
+  type        = string
+  description = "Load Balancer Security Group"
+}
+
 variable "alb_name" {
   type        = string
   description = "Name of the Application Load Balancer."

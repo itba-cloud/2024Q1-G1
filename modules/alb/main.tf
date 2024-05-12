@@ -2,31 +2,12 @@ resource "aws_lb" "lendaread_alb" {
   name                       = var.alb_name
   internal                   = false
   load_balancer_type         = "application"
-  security_groups            = [aws_security_group.alb_sg.id]
+  security_groups            = [var.alb_sg]
   subnets                    = var.public_subnets
   enable_deletion_protection = false
   tags                       = var.tags
 }
 
-resource "aws_security_group" "alb_sg" {
-  name        = "${var.alb_name}-sg"
-  description = "Security group for ${var.alb_name}"
-  vpc_id      = var.vpc_id
-
-  ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
 
 resource "aws_lb_target_group" "lendaread_tg" {
   name        = var.target_group_name
