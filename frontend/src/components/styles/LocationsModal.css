@@ -1,0 +1,171 @@
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1050;
+    border: none;
+}
+
+.modal.show {
+    display: flex;
+    border: none;
+    justify-content: center;
+}
+
+.modal-dialog {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    border: none;
+    margin-inline: 0px !important;
+}
+
+.modal-content {
+    border: none;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+}
+
+.modal-header-centered {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1rem 1rem;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+.close-button {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    border: none;
+    background: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: none ;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 0.25rem;
+    background: white;
+    color: black;
+}
+
+.error {
+    color: red;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+
+.submit-button {
+    background-color: #16df7e;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    margin: 5px auto;
+    display: block;
+}
+
+.cancel-button {
+    background-color: #D45235;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    margin: 5px auto;
+    display: block;
+}
+
+.icon-box {
+    color: #fff;
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: -70px;
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    z-index: 9;
+    background: #82ce34;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-box i {
+    font-size: 3rem;
+}
+
+/* Media query for responsiveness (optional) */
+@media (max-width: 600px) {
+    .modal-dialog {
+        width: 90%;
+        padding: 10px;
+    }
+}
+
+.modal-dialog {
+    /* Center the modal more effectively */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*.close-button {*/
+/*    !* Ensure the button is always in the top right corner of the modal *!*/
+/*    position: absolute;*/
+/*    top: 5px;*/
+/*    right: 5px;*/
+/*    background: transparent;*/
+/*    border: none;*/
+/*    font-size: 1.5rem;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.form-control {*/
+/*    width: 100%;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+
