@@ -1,20 +1,20 @@
 resource "aws_cloudwatch_log_group" "lendaread_log_group" {
-  name              = "/ecs/lendaread"
+  name              = "/ecs/${var.task_family}"
   retention_in_days = 14
 }
 
 resource "aws_ecs_cluster" "lendaread_cluster" {
-  name = "lendaread_cluster"
+  name = var.cluster_name
 }
 
 resource "aws_ecs_task_definition" "lendaread_api_task" {
-  family                   = "lendaread-tasks"
+  family                   = var.task_family
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  cpu                      = "1024" # 1 vCPU
-  memory                   = "2048" # 2 GiB
-  execution_role_arn       = data.aws_iam_role.lab_role.arn
-  task_role_arn            = data.aws_iam_role.lab_role.arn
+  cpu                      = "1024"
+  memory                   = "2048"
+  execution_role_arn       = var.execution_role_arn
+  task_role_arn            = var.task_role_arn
 
   runtime_platform {
     operating_system_family = "LINUX"
@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
   container_definitions = jsonencode([
     {
       name      = "lendaread-container"
-      image     = "${aws_ecr_repository.lendaread_ecr.repository_url}:latest"
+      image     = "${var.repository_url}:latest"
       cpu       = 1024
       memory    = 2048
       essential = true
@@ -36,16 +36,16 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
       ]
       environment = [
         { name = "VITE_APP_BASE_PATH", value = "/webapp" },
-        { name = "VITE_APP_BASE_URL", value = "http://${aws_lb.lendaread_alb.dns_name}" },
-        { name = "DB_URL_ENV", value = "jdbc:postgresql://${aws_db_instance.lendaread_db.endpoint}/" },
-        { name = "DB_USERNAME_ENV", value = "${aws_db_instance.lendaread_db.username}" },
-        { name = "DB_PASSWORD_ENV", value = "${aws_db_instance.lendaread_db.password}" } # Consider using AWS Secrets Manager for this
+        { name = "VITE_APP_BASE_URL", value = "http://${var.lb_dns_name}" },
+        { name = "DB_URL_ENV", value = "jdbc:postgresql://${var.db_endpoint}/" },
+        { name = "DB_USERNAME_ENV", value = var.db_username },
+        { name = "DB_PASSWORD_ENV", value = var.db_password }
       ],
       logConfiguration = {
-        logDriver = "awslogs",
+        logDriver = "awslogs"
         options = {
           awslogs-group         = aws_cloudwatch_log_group.lendaread_log_group.name,
-          awslogs-region        = "us-east-1",
+          awslogs-region        = var.aws_region,
           awslogs-stream-prefix = "ecs"
         }
       }
@@ -61,19 +61,19 @@ resource "aws_ecs_service" "lendaread_service" {
   launch_type     = "FARGATE"
 
   network_configuration {
-    subnets          = [aws_subnet.subnet_private1.id, aws_subnet.subnet_private2.id]
-    security_groups  = [aws_security_group.lendaread_api_task_sg.id]
+    subnets          = var.subnets
+    security_groups  = var.security_groups
     assign_public_ip = false
   }
 
   load_balancer {
-    target_group_arn = aws_lb_target_group.lendaread_tg.arn
+    target_group_arn = var.tg_arn
     container_name   = "lendaread-container"
     container_port   = 8080
   }
 
   depends_on = [
-    aws_ecr_repository.lendaread_ecr,
     aws_ecs_task_definition.lendaread_api_task
   ]
 }
+

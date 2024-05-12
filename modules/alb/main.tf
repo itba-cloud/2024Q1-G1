@@ -1,21 +1,17 @@
 resource "aws_lb" "lendaread_alb" {
-  name               = "lendaread-alb"
-  internal           = false
-  load_balancer_type = "application"
-  security_groups    = [aws_security_group.lendaread_lb_sg.id]
-  subnets            = [aws_subnet.subnet_public1.id, aws_subnet.subnet_public2.id]
-
+  name                       = var.alb_name
+  internal                   = false
+  load_balancer_type         = "application"
+  security_groups            = [aws_security_group.alb_sg.id]
+  subnets                    = var.public_subnets
   enable_deletion_protection = false
-
-  tags = {
-    Name = "lendaread-alb"
-  }
+  tags                       = var.tags
 }
 
 resource "aws_security_group" "alb_sg" {
-  name        = "alb-sg"
-  description = "Security group for ALB"
-  vpc_id      = aws_vpc.lendaread_vpc.id
+  name        = "${var.alb_name}-sg"
+  description = "Security group for ${var.alb_name}"
+  vpc_id      = var.vpc_id
 
   ingress {
     from_port   = 8080
@@ -31,17 +27,18 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
 resource "aws_lb_target_group" "lendaread_tg" {
-  name        = "lendaread-tg"
+  name        = var.target_group_name
   port        = 8080
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.lendaread_vpc.id
+  vpc_id      = var.vpc_id
   target_type = "ip"
 
   health_check {
     enabled             = true
     interval            = 30
-    path                = "/"
+    path                = var.health_check_path
     protocol            = "HTTP"
     timeout             = 5
     healthy_threshold   = 2
