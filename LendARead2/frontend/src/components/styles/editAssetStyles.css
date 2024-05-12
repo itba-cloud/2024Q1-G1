@@ -1,0 +1,18 @@
+.image-overlay {
+    background-color: rgba(0,0,0,0.3);
+}
+
+.image-container:hover .img-hover-text {
+    color: #D1E9C3;
+}
+
+.img-fluid {
+height: auto;
+object-fit: cover;
+}
+
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
