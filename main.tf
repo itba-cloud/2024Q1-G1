@@ -11,7 +11,7 @@ module "ecs" {
   task_family        = "lendaread-tasks"
   aws_region         = "us-east-1"
   subnets            = [aws_subnet.subnet_private1.id, aws_subnet.subnet_private2.id]
-  security_groups    = [aws_security_group.lendaread_api_task_sg.id]
+  security_groups    = [module.security_groups.ecs_task_security_group_id] # Adjusted
   repository_url     = module.ecr.repository_url
   lb_dns_name        = module.alb.alb_dns_name
   db_endpoint        = module.rds.db_endpoint
@@ -43,9 +43,17 @@ module "rds" {
   username               = "postgres"
   password               = "132holastf#"
   subnet_ids             = [aws_subnet.subnet_db1.id, aws_subnet.subnet_db2.id]
-  vpc_security_group_ids = [aws_security_group.rds_sg.id]
+  vpc_security_group_ids = [module.security_groups.rds_security_group_id] # Adjusted
   tags = {
     Name = "My PostgreSQL Instance"
+  }
+}
+
+module "security_groups" {
+  source = "./modules/sg"
+  vpc_id = aws_vpc.lendaread_vpc.id
+  tags = {
+    Environment = "Production"
   }
 }
 
