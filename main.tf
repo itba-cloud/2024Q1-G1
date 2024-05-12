@@ -14,9 +14,9 @@ module "ecs" {
   security_groups    = [aws_security_group.lendaread_api_task_sg.id]
   repository_url     = module.ecr.repository_url
   lb_dns_name        = module.alb.alb_dns_name
-  db_endpoint        = aws_db_instance.lendaread_db.endpoint
-  db_username        = aws_db_instance.lendaread_db.username
-  db_password        = aws_db_instance.lendaread_db.password
+  db_endpoint        = module.rds.db_endpoint
+  db_username        = module.rds.db_username
+  db_password        = module.rds.db_password
   tg_arn             = module.alb.tg_arn
   execution_role_arn = data.aws_iam_role.lab_role.arn
   task_role_arn      = data.aws_iam_role.lab_role.arn
