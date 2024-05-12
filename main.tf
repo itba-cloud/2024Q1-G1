@@ -1,4 +1,4 @@
-module "ecr_and_docker" {
+module "ecr" {
   source             = "./modules/ecr"
   aws_region         = "us-east-1"
   repository_name    = "lendaread_ecr"
