@@ -33,3 +33,20 @@ variable "alb_name" {
   type = string
   default = "lendaread-alb"
 }
+
+variable "alb_tg" {
+  description = "ALB target group"
+  type = string
+  default = "lendaread-tg"
+}
+
+variable "alb_health_path" {
+  description = "ALB Health Path"
+  type = string
+  default = "/"
+}
+
+variable "role" {
+  description = "Role for ECS"
+  type = string
+}

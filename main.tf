@@ -1,5 +1,5 @@
 data "aws_iam_role" "lab_role" {
-  name = "LabRole"
+  name = var.role
 }
 
 provider "aws" {
@@ -20,7 +20,7 @@ module "ecs" {
   task_family        = var.task_family
   aws_region         = var.aws_region
   subnets            = module.vpc.subnet_private
-  security_groups    = [module.security_groups.ecs_task_security_group_id] # Adjusted
+  security_groups    = [module.security_groups.ecs_task_security_group_id] 
   repository_url     = module.ecr.repository_url
   lb_dns_name        = module.alb.alb_dns_name
   db_endpoint        = module.rds.db_endpoint
@@ -36,9 +36,9 @@ module "alb" {
   vpc_id            =  module.vpc.vpc_id
   alb_sg            = module.security_groups.lb_security_group_id
   public_subnets    = module.vpc.subnet_public
-  alb_name          = "lendaread-alb"
-  target_group_name = "lendaread-tg"
-  health_check_path = "/"
+  alb_name          = var.alb_name
+  target_group_name = var.alb_tg
+  health_check_path = var.alb_health_path
 }
 
 module "rds" {
@@ -50,7 +50,7 @@ module "rds" {
   username               = "postgres"
   password               = "132holastf#"
   subnet_ids             = module.vpc.subnet_db
-  vpc_security_group_ids = [module.security_groups.rds_security_group_id] # Adjusted
+  vpc_security_group_ids = [module.security_groups.rds_security_group_id] 
   tags = {
     Name = "PostgreSQL Instance"
   }
@@ -66,6 +66,6 @@ module "security_groups" {
 
 module "vpc" {
   source = "./modules/vpc"
-  availability_zone_1 = format("%s/%s",var.aws_region,"a")
-  availability_zone_2 = format("%s/%s",var.aws_region,"a")
+  availability_zone_1 = format("%s%s",var.aws_region,"a")
+  availability_zone_2 = format("%s%s",var.aws_region,"a")
 }
