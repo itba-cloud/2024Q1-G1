@@ -1,6 +1,6 @@
 module "ecr" {
   source               = "./modules/ecr"
-  aws_region           = "us-east-1"
+  aws_region           = var.aws_region
   repository_name      = "lendaread_ecr"
   image_tag_mutability = "MUTABLE"
 }
@@ -10,7 +10,7 @@ module "ecs" {
   cluster_name       = "lendaread_cluster"
   task_family        = "lendaread-tasks"
   aws_region         = "us-east-1"
-  subnets            = [aws_subnet.subnet_private1.id, aws_subnet.subnet_private2.id]
+  subnets            = module.vpc.subnet_private
   security_groups    = [module.security_groups.ecs_task_security_group_id] # Adjusted
   repository_url     = module.ecr.repository_url
   lb_dns_name        = module.alb.alb_dns_name
@@ -24,9 +24,9 @@ module "ecs" {
 
 module "alb" {
   source            = "./modules/alb"
-  vpc_id            = aws_vpc.lendaread_vpc.id
+  vpc_id            =  module.vpc.vpc_id
   alb_sg            = module.security_groups.lb_security_group_id
-  public_subnets    = [aws_subnet.subnet_public1.id, aws_subnet.subnet_public2.id]
+  public_subnets    = module.vpc.subnet_public
   alb_name          = "lendaread-alb"
   target_group_name = "lendaread-tg"
   health_check_path = "/"
@@ -43,7 +43,7 @@ module "rds" {
   engine_version         = "16.1"
   username               = "postgres"
   password               = "132holastf#"
-  subnet_ids             = [aws_subnet.subnet_db1.id, aws_subnet.subnet_db2.id]
+  subnet_ids             = module.vpc.subnet_db
   vpc_security_group_ids = [module.security_groups.rds_security_group_id] # Adjusted
   tags = {
     Name = "My PostgreSQL Instance"
@@ -60,6 +60,6 @@ module "security_groups" {
 
 module "vpc" {
   source = "./modules/vpc"
-  availability_zone_1 = var.aws_region + "a"
-  availability_zone_2 = var.aws_region + "b"
+  availability_zone_1 = format("%s/%s",var.aws_region,"a")
+  availability_zone_2 = format("%s/%s",var.aws_region,"a")
 }
