@@ -52,9 +52,14 @@ module "rds" {
 
 module "security_groups" {
   source = "./modules/sg"
-  vpc_id = aws_vpc.lendaread_vpc.id
+  vpc_id = module.vpc.vpc_id
   tags = {
     Environment = "Production"
   }
 }
 
+module "vpc" {
+  source = "./modules/vpc"
+  availability_zone_1 = var.aws_region + "a"
+  availability_zone_2 = var.aws_region + "b"
+}
