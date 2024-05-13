@@ -19,8 +19,8 @@ resource "aws_internet_gateway" "lendaread_gw" {
 # Public Subnets
 resource "aws_subnet" "subnet_public1" {
   vpc_id            = aws_vpc.lendaread_vpc.id
-  cidr_block        = "10.0.1.0/24"
-  availability_zone = "us-east-1a"
+  cidr_block        =  var.cidr_public_1
+  availability_zone =  var.availability_zone_1
 
   tags = {
     Name = "Public Subnet 1"
@@ -29,8 +29,8 @@ resource "aws_subnet" "subnet_public1" {
 
 resource "aws_subnet" "subnet_public2" {
   vpc_id            = aws_vpc.lendaread_vpc.id
-  cidr_block        = "10.0.2.0/24"
-  availability_zone = "us-east-1b"
+  cidr_block        = var.cidr_public_2
+  availability_zone = var.availability_zone_2
 
   tags = {
     Name = "Public Subnet 2"
