@@ -43,25 +43,19 @@ module "alb" {
 
 module "rds" {
   source                 = "./modules/rds"
-  instance_class         = "db.t3.micro"
-  allocated_storage      = 20
-  engine                 = "postgres"
-  engine_version         = "16.1"
-  username               = "postgres"
-  password               = "132holastf#"
+  instance_class         = var.rds_instance_class
+  allocated_storage      = var.rds_allocated_storage
+  engine                 = var.rds_engine
+  engine_version         = var.rds_engine_version
+  username               = var.rds_username
+  password               = var.rds_password
   subnet_ids             = module.vpc.subnet_db
-  vpc_security_group_ids = [module.security_groups.rds_security_group_id] 
-  tags = {
-    Name = "PostgreSQL Instance"
-  }
+  vpc_security_group_ids = [module.security_groups.rds_security_group_id]
 }
 
 module "security_groups" {
   source = "./modules/sg"
   vpc_id = module.vpc.vpc_id
-  tags = {
-    Environment = "Security Groups"
-  }
 }
 
 module "vpc" {

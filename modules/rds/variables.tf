@@ -38,9 +38,3 @@ variable "vpc_security_group_ids" {
   description = "A list of VPC security group IDs to associate with the RDS instance."
   type        = list(string)
 }
-
-variable "tags" {
-  description = "A map of tags to assign to the resource."
-  type        = map(string)
-}
-
