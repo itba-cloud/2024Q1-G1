@@ -1,12 +1,10 @@
 resource "aws_db_subnet_group" "my_db_subnet_group" {
   name       = "my-db-subnet-group"
   subnet_ids = var.subnet_ids
-
-  tags = var.tags
 }
 
 resource "aws_db_instance" "lendaread_db" {
-  identifier             = "mydbinstance"
+  identifier             = "db-instance"
   instance_class         = var.instance_class
   allocated_storage      = var.allocated_storage
   engine                 = var.engine
@@ -18,7 +16,5 @@ resource "aws_db_instance" "lendaread_db" {
   multi_az               = false
   storage_type           = "gp2"
   skip_final_snapshot    = true
-
-  tags = var.tags
 }
 
