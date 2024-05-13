@@ -1,15 +1,24 @@
+data "aws_iam_role" "lab_role" {
+  name = "LabRole"
+}
+
+provider "aws" {
+  region  = var.aws_region
+}
+
+
 module "ecr" {
   source               = "./modules/ecr"
   aws_region           = var.aws_region
-  repository_name      = "lendaread_ecr"
-  image_tag_mutability = "MUTABLE"
+  repository_name      = var.ecr_name
+  image_tag_mutability = var.ecr_mutability
 }
 
 module "ecs" {
   source             = "./modules/ecs"
-  cluster_name       = "lendaread_cluster"
-  task_family        = "lendaread-tasks"
-  aws_region         = "us-east-1"
+  cluster_name       = var.cluster_name
+  task_family        = var.task_family
+  aws_region         = var.aws_region
   subnets            = module.vpc.subnet_private
   security_groups    = [module.security_groups.ecs_task_security_group_id] # Adjusted
   repository_url     = module.ecr.repository_url
@@ -30,9 +39,6 @@ module "alb" {
   alb_name          = "lendaread-alb"
   target_group_name = "lendaread-tg"
   health_check_path = "/"
-  tags = {
-    Name = "lendaread-alb"
-  }
 }
 
 module "rds" {
@@ -46,7 +52,7 @@ module "rds" {
   subnet_ids             = module.vpc.subnet_db
   vpc_security_group_ids = [module.security_groups.rds_security_group_id] # Adjusted
   tags = {
-    Name = "My PostgreSQL Instance"
+    Name = "PostgreSQL Instance"
   }
 }
 
@@ -54,7 +60,7 @@ module "security_groups" {
   source = "./modules/sg"
   vpc_id = module.vpc.vpc_id
   tags = {
-    Environment = "Production"
+    Environment = "Security Groups"
   }
 }
 
