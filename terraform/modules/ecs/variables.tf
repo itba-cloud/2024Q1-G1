@@ -67,3 +67,8 @@ variable "cpu_architecture" {
   type = string
   description = "Type of architecture the task will run (depend on which architecture is built)"
 }
+
+variable "ecs_log_group" {
+  type = string
+  description = "Cloudwatch log group"
+}

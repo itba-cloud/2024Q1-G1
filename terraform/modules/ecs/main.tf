@@ -1,7 +1,4 @@
-resource "aws_cloudwatch_log_group" "lendaread_log_group" {
-  name              = "/ecs/${var.task_family}"
-  retention_in_days = 14
-}
+
 
 resource "aws_ecs_cluster" "lendaread_cluster" {
   name = var.cluster_name
@@ -44,7 +41,7 @@ resource "aws_ecs_task_definition" "lendaread_api_task" {
       logConfiguration = {
         logDriver = "awslogs"
         options = {
-          awslogs-group         = aws_cloudwatch_log_group.lendaread_log_group.name,
+          awslogs-group         = var.ecs_log_group,
           awslogs-region        = var.aws_region,
           awslogs-stream-prefix = "ecs"
         }

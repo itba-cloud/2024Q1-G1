@@ -30,6 +30,7 @@ module "ecs" {
   execution_role_arn = data.aws_iam_role.lab_role.arn
   task_role_arn      = data.aws_iam_role.lab_role.arn
   cpu_architecture = var.ecs_task_cpu_architecture
+  ecs_log_group = module.cloudwatch.ecs_log_group
 }
 
 module "alb" {
@@ -63,4 +64,9 @@ module "vpc" {
   source = "./modules/vpc"
   availability_zone_1 = format("%s%s",var.aws_region,"a")
   availability_zone_2 = format("%s%s",var.aws_region,"b")
+}
+
+module "cloudwatch" {
+  source = "./modules/cloudwatch"
+  ecs_log_name = "/ecs/${var.task_family}"
 }
