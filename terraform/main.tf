@@ -71,6 +71,12 @@ module "cloudwatch" {
   ecs_log_name = "/ecs/${var.task_family}"
 }
 
+module "s3_backend" {
+  source         = "./modules/s3-backend"
+  region         =  var.aws_region
+  bucket_name    = "my-terraform-state-bucket"
+}
+
 
 ## AWS Learner Lab does not allow to use grafana
 #module "grafana" {

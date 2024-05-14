@@ -103,3 +103,9 @@ variable "grafana_name" {
   type = string
   default = "alb-grafana-workspace"
 }
+
+variable "s3_backend_bucket_name" {
+  description = "Name to store state of infraestructure"
+  type = string
+  default = "terraform-state"
+}
