@@ -70,3 +70,11 @@ module "cloudwatch" {
   source = "./modules/cloudwatch"
   ecs_log_name = "/ecs/${var.task_family}"
 }
+
+
+module "grafana" {
+  source = "./modules/grafana"
+  aws_region             =  var.aws_region
+  grafana_workspace_name = var.grafana_name
+  role_arn = data.aws_iam_role.lab_role.arn
+}

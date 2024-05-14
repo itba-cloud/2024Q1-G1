@@ -97,3 +97,9 @@ variable "ecs_task_cpu_architecture" {
   description = "cpu architecture for ecs task instance"
   type = string
 }
+
+variable "grafana_name" {
+  description = "Grafana's workspace name"
+  type = string
+  default = "alb-grafana-workspace"
+}
