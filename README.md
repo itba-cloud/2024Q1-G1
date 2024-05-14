@@ -12,11 +12,12 @@ For example, let's imagine the user Marco, who enjoys reading philosophy in mult
 ## Terraform
 
 First go to the terraform folder
-´´´bash
+'''bash
 cd terraform
-´´´
+'''
+
 
 Then run 
-´´´bash
+'''bash
  terraform apply --auto-approve -var-file=dev.tfvars
-´´´
+'''
