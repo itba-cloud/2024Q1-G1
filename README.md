@@ -9,3 +9,14 @@ The goal of the web application is to create a community of readers, where all o
 
 For example, let's imagine the user Marco, who enjoys reading philosophy in multiple languages. Thanks to other readers with German heritage (for example), he can borrow a philosophy book from a German author that he could not have read by going to a library in Argentina.
 
+## Terraform
+
+First go to the terraform folder
+´´´bash
+cd terraform
+´´´
+
+Then run 
+´´´bash
+ terraform apply --auto-approve -var-file=dev.tfvars
+´´´
