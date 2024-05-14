@@ -72,10 +72,12 @@ module "cloudwatch" {
 }
 
 module "s3_backend" {
-  source         = "./modules/s3-backend"
-  region         =  var.aws_region
-  bucket_name    = "my-terraform-state-bucket"
+  source              = "./modules/s3-backend"
+  region              = var.aws_region
+  bucket_name         = "my-terraform-state-bucket"
+  dynamodb_table_name = "terraform-state-locks"
 }
+
 
 
 ## AWS Learner Lab does not allow to use grafana
