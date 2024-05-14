@@ -91,11 +91,9 @@ resource "aws_subnet" "subnet_private2" {
 
 # Elastic IPs for NAT Gateways
 resource "aws_eip" "nat_eip1" {
-  domain = "vpc"
 }
 
 resource "aws_eip" "nat_eip2" {
-  domain = "vpc"
 }
 
 # NAT Gateways
