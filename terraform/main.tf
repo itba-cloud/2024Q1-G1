@@ -72,9 +72,10 @@ module "cloudwatch" {
 }
 
 
-module "grafana" {
-  source = "./modules/grafana"
-  aws_region             =  var.aws_region
-  grafana_workspace_name = var.grafana_name
-  role_arn = data.aws_iam_role.lab_role.arn
-}
+## AWS Learner Lab does not allow to use grafana
+#module "grafana" {
+#  source = "./modules/grafana"
+# aws_region             =  var.aws_region
+#  grafana_workspace_name = var.grafana_name
+#  role_arn = data.aws_iam_role.lab_role.arn
+#}
