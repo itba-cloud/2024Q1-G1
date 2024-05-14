@@ -63,3 +63,7 @@ variable "tg_arn" {
   description = "ARN of the target group for the load balancer"
 }
 
+variable "cpu_architecture" {
+  type = string
+  description = "Type of architecture the task will run (depend on which architecture is built)"
+}

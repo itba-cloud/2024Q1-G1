@@ -92,3 +92,8 @@ variable "rds_db_name" {
   type        = string
   default     = "PostgreSQL Instance"
 }
+
+variable "ecs_task_cpu_architecture" {
+  description = "cpu architecture for ecs task instance"
+  type = string
+}

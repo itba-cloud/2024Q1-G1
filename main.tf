@@ -29,6 +29,7 @@ module "ecs" {
   tg_arn             = module.alb.tg_arn
   execution_role_arn = data.aws_iam_role.lab_role.arn
   task_role_arn      = data.aws_iam_role.lab_role.arn
+  cpu_architecture = var.ecs_task_cpu_architecture
 }
 
 module "alb" {
