@@ -16,8 +16,32 @@ First go to the terraform folder
 cd terraform
 ```
 
+Now we need to create the S3 bucket and a DynamoDB to hold the terraform state. As a result, move to the `init/` folder and execute
 
-Then run 
 ```bash
- terraform apply --auto-approve -var-file=dev.tfvars
+ terraform init
+```
+
+Then, apply the changes (make sure to set the AWS credentials beforehand):
+
+```bash
+ terraform apply 
+```
+
+This will prompt you to enter certain values. After it runs successfully, note down the values for `dynamodb_table` and `s3_bucket`.
+
+
+Next, go to the main architecture folder:
+
+```bash
+cd ../main
+```
+
+Now, you need to modify the `backend.tf` file with the values noted earlier. This tells Terraform where to store its state.
+
+Finally, run the configuration:
+
+
+```bash
+terraform apply --auto-approve -var-file=dev.tfvars
 ```

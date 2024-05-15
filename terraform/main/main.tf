@@ -2,20 +2,21 @@ data "aws_iam_role" "lab_role" {
   name = var.role
 }
 
+
 provider "aws" {
   region  = var.aws_region
 }
 
 
 module "ecr" {
-  source               = "./modules/ecr"
+  source               = "../modules/ecr"
   aws_region           = var.aws_region
   repository_name      = var.ecr_name
   image_tag_mutability = var.ecr_mutability
 }
 
 module "ecs" {
-  source             = "./modules/ecs"
+  source             = "../modules/ecs"
   cluster_name       = var.cluster_name
   task_family        = var.task_family
   aws_region         = var.aws_region
@@ -34,7 +35,7 @@ module "ecs" {
 }
 
 module "alb" {
-  source            = "./modules/alb"
+  source            = "../modules/alb"
   vpc_id            =  module.vpc.vpc_id
   alb_sg            = module.security_groups.lb_security_group_id
   public_subnets    = [module.vpc.subnet_public1, module.vpc.subnet_public2]
@@ -44,7 +45,7 @@ module "alb" {
 }
 
 module "rds" {
-  source                 = "./modules/rds"
+  source                 = "../modules/rds"
   instance_class         = var.rds_instance_class
   allocated_storage      = var.rds_allocated_storage
   engine                 = var.rds_engine
@@ -56,22 +57,25 @@ module "rds" {
 }
 
 module "security_groups" {
-  source = "./modules/sg"
+  source = "../modules/sg"
   vpc_id = module.vpc.vpc_id
 }
 
 module "vpc" {
-  source = "./modules/vpc"
+  source = "../modules/vpc"
   availability_zone_1 = format("%s%s",var.aws_region,"a")
   availability_zone_2 = format("%s%s",var.aws_region,"b")
 }
 
 module "cloudwatch" {
-  source = "./modules/cloudwatch"
+  source = "../modules/cloudwatch"
   ecs_log_name = "/ecs/${var.task_family}"
 }
 
+<<<<<<< HEAD:terraform/main/main.tf
+=======
 
+>>>>>>> main:terraform/main.tf
 
 ## AWS Learner Lab does not allow to use grafana
 #module "grafana" {
