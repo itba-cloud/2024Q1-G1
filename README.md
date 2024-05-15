@@ -13,7 +13,7 @@ For example, let's imagine the user Marco, who enjoys reading philosophy in mult
 
 First go to the terraform folder
 ```bash
-cd terraform
+cd terraform/init
 ```
 
 Now we need to create the S3 bucket and a DynamoDB to hold the terraform state lock. As a result, move to the `init/` folder and execute
@@ -39,9 +39,13 @@ cd ../main
 
 Now, you need to modify the `backend.tf` file with the values noted earlier. This tells Terraform where to store its state.
 
-Finally, run the configuration:
+Finally, run the configuration in the main folder:
 
 
 ```bash
-terraform apply --auto-approve -var-file=dev.tfvars
+terraform init
+```
+
+```bash
+terraform apply --auto-approve
 ```
