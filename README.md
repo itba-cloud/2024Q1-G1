@@ -22,23 +22,24 @@ Now we need to create the S3 bucket and a DynamoDB to hold the terraform state. 
  terraform init
 ```
 
-Luego se aplican los cambios (previamente hay que setear las credenciales de aws en `.aws/credentials`)
-
+Then, apply the changes (make sure to set the AWS credentials beforehand):
 
 ```bash
  terraform apply 
 ```
 
-Esto va a pedir ingresar ciertos valores. Luego de que funcione hay que anotar los valores para dynamodb_table y dynamodb_table
+This will prompt you to enter certain values. After it runs successfully, note down the values for `dynamodb_table` and `s3_bucket`.
 
-Luego vamos a la arquitectura principal
+
+Next, go to the main architecture folder:
+
 ```bash
 cd ../main
 ```
 
-Y ahora hay que modificar el archivo `backend.tf` con los valores de antes. Esto le dice a terraform donde guarda el estado de terraform. 
+Now, you need to modify the `backend.tf` file with the values noted earlier. This tells Terraform where to store its state.
 
-Por ultimo, corremos la configuracion
+Finally, run the configuration:
 
 
 ```bash
