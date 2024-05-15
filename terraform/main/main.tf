@@ -2,15 +2,6 @@ data "aws_iam_role" "lab_role" {
   name = var.role
 }
 
-data "terraform_remote_state" "resources" {
-  backend = "s3"
-
-  config = {
-    bucket = "your-state-bucket"  # The S3 bucket where the first project's state is stored
-    key    = "path/to/first-project/terraform.tfstate"
-    region = "us-west-2"
-  }
-}
 
 provider "aws" {
   region  = var.aws_region

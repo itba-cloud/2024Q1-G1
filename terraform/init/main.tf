@@ -10,12 +10,16 @@ resource "random_pet" "bucket_suffix" {
 resource "aws_s3_bucket" "terraform_state" {
   bucket = "${var.bucket_name}-${random_pet.bucket_suffix.id}"
 
-  versioning {
-    enabled = true
-  }
-
   lifecycle {
     prevent_destroy = true
+  }
+}
+
+resource "aws_s3_bucket_versioning" "terraform_state_versioning" {
+  bucket = aws_s3_bucket.terraform_state.bucket
+
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
@@ -33,7 +37,3 @@ resource "aws_dynamodb_table" "terraform_locks" {
     prevent_destroy = true
   }
 }
-
-
-
-
