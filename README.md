@@ -29,10 +29,18 @@ Luego se aplican los cambios (previamente hay que setear las credenciales de aws
  terraform apply 
 ```
 
-Esto va a pedir ingresar ciertos valores. Luego de que funcione hay que ejecutar
+Esto va a pedir ingresar ciertos valores. Luego de que funcione hay que anotar los valores para dynamodb_table y dynamodb_table
 
+Luego vamos a la arquitectura principal
 ```bash
 cd ../main
 ```
 
-Y ahora hay que modificar el archivo `backend.tf`
+Y ahora hay que modificar el archivo `backend.tf` con los valores de antes. Esto le dice a terraform donde guarda el estado de terraform. 
+
+Por ultimo, corremos la configuracion
+
+
+```bash
+terraform apply --auto-approve -var-file=dev.tfvars
+```
