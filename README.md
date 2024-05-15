@@ -9,3 +9,30 @@ The goal of the web application is to create a community of readers, where all o
 
 For example, let's imagine the user Marco, who enjoys reading philosophy in multiple languages. Thanks to other readers with German heritage (for example), he can borrow a philosophy book from a German author that he could not have read by going to a library in Argentina.
 
+## Terraform
+
+First go to the terraform folder
+```bash
+cd terraform
+```
+
+Now we need to create the S3 bucket and a DynamoDB to hold the terraform state. As a result, move to the `init/` folder and execute
+
+```bash
+ terraform init
+```
+
+Luego se aplican los cambios (previamente hay que setear las credenciales de aws en `.aws/credentials`)
+
+
+```bash
+ terraform apply 
+```
+
+Esto va a pedir ingresar ciertos valores. Luego de que funcione hay que ejecutar
+
+```bash
+cd ../main
+```
+
+Y ahora hay que modificar el archivo `backend.tf`
