@@ -72,6 +72,10 @@ module "cloudwatch" {
   ecs_log_name = "/ecs/${var.task_family}"
 }
 
+<<<<<<< HEAD:terraform/main/main.tf
+=======
+
+>>>>>>> main:terraform/main.tf
 
 ## AWS Learner Lab does not allow to use grafana
 #module "grafana" {
