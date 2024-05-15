@@ -16,7 +16,7 @@ First go to the terraform folder
 cd terraform
 ```
 
-Now we need to create the S3 bucket and a DynamoDB to hold the terraform state. As a result, move to the `init/` folder and execute
+Now we need to create the S3 bucket and a DynamoDB to hold the terraform state lock. As a result, move to the `init/` folder and execute
 
 ```bash
  terraform init
