@@ -13,7 +13,7 @@ resource "aws_db_instance" "lendaread_db" {
   password               = var.password
   db_subnet_group_name   = aws_db_subnet_group.my_db_subnet_group.name
   vpc_security_group_ids = var.vpc_security_group_ids
-  multi_az               = false
+  multi_az               = var.multi_az_rds
   storage_type           = "gp2"
   skip_final_snapshot    = true
 }

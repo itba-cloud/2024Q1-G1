@@ -109,3 +109,8 @@ variable "s3_backend_bucket_name" {
   type = string
   default = "terraform-state"
 }
+
+variable "multi_az_rds" {
+  description = "Boolean to determine RDS replication"
+  type = bool
+}

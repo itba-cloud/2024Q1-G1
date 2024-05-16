@@ -38,3 +38,8 @@ variable "vpc_security_group_ids" {
   description = "A list of VPC security group IDs to associate with the RDS instance."
   type        = list(string)
 }
+
+variable "multi_az_rds" {
+  description = "Boolean to mark whether multiple AZ RDS is configured"
+  type = bool
+}
