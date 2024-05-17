@@ -1,9 +1,9 @@
 terraform {
   backend "s3" {
-    bucket         = "bucket-cloud-virtually-primarily-rationally-fit-sailfish"
+    bucket         = "bucket-fairly-completely-equally-main-satyr"
     key            = "terraform/state"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "dynamo-cloud"
+    dynamodb_table = "dynamo"
   }
 }

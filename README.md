@@ -16,28 +16,28 @@ First go to the terraform folder
 cd terraform/init
 ```
 
-Now we need to create the S3 bucket and a DynamoDB to hold the terraform state lock. As a result, move to the `init/` folder and execute
+Now we need to create the S3 bucket and a DynamoDB to hold the terraform state lock. 
 
 ```bash
  terraform init
 ```
 
-Then, apply the changes (make sure to set the AWS credentials beforehand):
+Then, apply the changes (make sure to set the AWS credentials beforehand). Also sample.tfvars holds the sample variables needed (this would change for dev/prod)
 
 ```bash
- terraform apply 
+terraform apply -auto-approve -var-file=sample.tfvars
 ```
 
-This will prompt you to enter certain values. After it runs successfully, note down the values for `dynamodb_table` and `s3_bucket`.
+After running the command you will see two variables print `dynamodb_table` and `s3_bucket` that are needed later
 
 
-Next, go to the main architecture folder:
+Next, go to the main architecture folder. Here is the architecture in itself, it will use the `dynamodb_table` and `s3_bucket` to store its state, thus it needs to be built in a two-step fashion.
 
 ```bash
 cd ../main
 ```
 
-Now, you need to modify the `backend.tf` file with the values noted earlier. This tells Terraform where to store its state.
+Now, you need to modify the `backend.tf` file with the values from the last apply, paste them verbatim. This tells Terraform where to store its state.
 
 Finally, run the configuration in the main folder:
 
@@ -47,5 +47,5 @@ terraform init
 ```
 
 ```bash
-terraform apply --auto-approve
+terraform apply -auto-approve -var-file=sample.tfvars
 ```
