@@ -4,7 +4,7 @@ data "aws_iam_role" "lab_role" {
 
 
 provider "aws" {
-  region  = var.aws_region
+  region = var.aws_region
 }
 
 
@@ -20,8 +20,8 @@ module "ecs" {
   cluster_name       = var.cluster_name
   task_family        = var.task_family
   aws_region         = var.aws_region
-  subnets            = [module.vpc.subnet_private1, module.vpc.subnet_private2 ]
-  security_groups    = [module.security_groups.ecs_task_security_group_id] 
+  subnets            = [module.vpc.subnet_private1, module.vpc.subnet_private2]
+  security_groups    = [module.security_groups.ecs_task_security_group_id]
   repository_url     = module.ecr.repository_url
   lb_dns_name        = module.alb.alb_dns_name
   db_endpoint        = module.rds.db_endpoint
@@ -30,13 +30,13 @@ module "ecs" {
   tg_arn             = module.alb.tg_arn
   execution_role_arn = data.aws_iam_role.lab_role.arn
   task_role_arn      = data.aws_iam_role.lab_role.arn
-  cpu_architecture = var.ecs_task_cpu_architecture
-  ecs_log_group = module.cloudwatch.ecs_log_group
+  cpu_architecture   = var.ecs_task_cpu_architecture
+  ecs_log_group      = module.cloudwatch.ecs_log_group
 }
 
 module "alb" {
   source            = "../modules/alb"
-  vpc_id            =  module.vpc.vpc_id
+  vpc_id            = module.vpc.vpc_id
   alb_sg            = module.security_groups.lb_security_group_id
   public_subnets    = [module.vpc.subnet_public1, module.vpc.subnet_public2]
   alb_name          = var.alb_name
@@ -63,13 +63,13 @@ module "security_groups" {
 }
 
 module "vpc" {
-  source = "../modules/vpc"
-  availability_zone_1 = format("%s%s",var.aws_region,"a")
-  availability_zone_2 = format("%s%s",var.aws_region,"b")
+  source              = "../modules/vpc"
+  availability_zone_1 = format("%s%s", var.aws_region, "a")
+  availability_zone_2 = format("%s%s", var.aws_region, "b")
 }
 
 module "cloudwatch" {
-  source = "../modules/cloudwatch"
+  source       = "../modules/cloudwatch"
   ecs_log_name = "/ecs/${var.task_family}"
 }
 
@@ -80,3 +80,4 @@ module "cloudwatch" {
 #  grafana_workspace_name = var.grafana_name
 #  role_arn = data.aws_iam_role.lab_role.arn
 #}
+
