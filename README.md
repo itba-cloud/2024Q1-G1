@@ -50,3 +50,4 @@ Finally, let's deploy the architecture to AWS 🚀
 ```bash
 terraform apply -auto-approve -var-file=sample.tfvars
 ```
+Note, if running the commands from ARM architecture (e.g. apple silicon) the variable `ecs_task_cpu_architecture` needs to be changed to `ARM64`
