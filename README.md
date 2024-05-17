@@ -39,12 +39,13 @@ cd ../main
 
 Now, you need to modify the `backend.tf` file with the values from the last apply, paste them verbatim. This tells Terraform where to store its state.
 
-Finally, run the configuration in the main folder:
-
+Let's init the configuration in the main folder:
 
 ```bash
 terraform init
 ```
+
+Finally, let's deploy the architecture to AWS 🚀
 
 ```bash
 terraform apply -auto-approve -var-file=sample.tfvars
