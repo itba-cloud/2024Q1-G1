@@ -45,14 +45,34 @@ resource "null_resource" "build_and_deploy_spa" {
 
   provisioner "local-exec" {
     command = <<EOF
+      set -e
+      echo "Setting environment variables"
       export VITE_APP_BASE_PATH='/webapp'
       export VITE_APP_BASE_URL='${var.alb}'
-      git clone https://github.com/Marco444/LendARead2-AWS.git LendARead2-AWS/
-      cd LendARead2-AWS/frontend
+      
+      echo "Removing existing repository directory if it exists"
+      rm -rf LendARead2-AWS2/
+      
+      echo "Cloning repository"
+      git clone https://github.com/Marco444/LendARead2-AWS.git LendARead2-AWS2/
+      
+      echo "Listing contents of the cloned repository"
+      ls LendARead2-AWS2/
+      
+      echo "Navigating to frontend directory"
+      cd LendARead2-AWS2/LendARead2/frontend
+      
+      echo "Installing dependencies"
       npm install
+      
+      echo "Building the SPA"
       npm run build
+      
+      echo "Listing contents of the frontend directory"
       ls
-      aws s3 sync dist s3://${aws_s3_bucket.spa_bucket.bucket} --delete --region ${var.region}
+      
+      echo "Syncing build output to S3"
+      aws s3 sync dist/ s3://${aws_s3_bucket.spa_bucket.bucket} --delete --region ${var.region}
     EOF
   }
 
