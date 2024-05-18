@@ -23,7 +23,6 @@ export default defineConfig({
     },
     minify: 'esbuild', // 'terser' is the default minifier for production
   },
-  base: base,
   //@ts-ignore
   test: {
     globals: true,
