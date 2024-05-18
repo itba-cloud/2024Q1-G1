@@ -5,10 +5,15 @@ variable "bucket_name" {
 
 variable "alb" {
   description = "The url of the application load balancer"
-  type = string
+  type        = string
 }
 
 variable "role" {
   description = "Role for bucket"
-  type = string
+  type        = string
+}
+
+variable "region" {
+  description = "Region"
+  type        = string
 }

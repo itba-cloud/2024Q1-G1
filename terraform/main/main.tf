@@ -78,6 +78,7 @@ module "spa" {
   alb         = module.alb.alb_dns_name
   bucket_name = "spafe4e4ce-2024"
   role        = data.aws_iam_role.lab_role.arn
+  region      = var.aws_region
 }
 
 ## AWS Learner Lab does not allow to use grafana

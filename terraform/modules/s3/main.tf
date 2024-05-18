@@ -25,14 +25,14 @@ resource "aws_s3_bucket_website_configuration" "spa_website" {
 resource "aws_s3_bucket_policy" "spa_bucket_policy" {
   bucket = aws_s3_bucket.spa_bucket.id
   policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
+    "Version" : "2012-10-17",
+    "Statement" : [
       {
-        "Sid": "PublicRead",
-        "Effect": "Allow",
-        "Principal": "*",
-        "Action": "s3:GetObject",
-        "Resource": "arn:aws:s3:::${aws_s3_bucket.spa_bucket.bucket}/*"
+        "Sid" : "PublicRead",
+        "Effect" : "Allow",
+        "Principal" : "*",
+        "Action" : "s3:GetObject",
+        "Resource" : "arn:aws:s3:::${aws_s3_bucket.spa_bucket.bucket}/*"
       }
     ]
   })
@@ -44,19 +44,19 @@ resource "null_resource" "build_and_deploy_spa" {
   }
 
   provisioner "local-exec" {
-    command = <<-EOT
+    command = <<EOF
       export VITE_APP_BASE_PATH='/webapp'
       export VITE_APP_BASE_URL='${var.alb}'
       git clone https://github.com/Marco444/LendARead2-AWS.git LendARead2-AWS/
       cd LendARead2-AWS/frontend
       npm install
       npm run build
-      aws s3 sync build/ s3://${aws_s3_bucket.spa_bucket.bucket} --delete
-    EOT
+      ls
+      aws s3 sync dist s3://${aws_s3_bucket.spa_bucket.bucket} --delete --region ${var.region}
+    EOF
   }
 
   depends_on = [
-    aws_s3_bucket.spa_bucket,
-    aws_s3_bucket_ownership_controls.spa_bucket_owner_controls
+    aws_s3_bucket.spa_bucket
   ]
 }
