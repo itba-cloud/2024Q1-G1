@@ -72,6 +72,12 @@ module "cloudwatch" {
   ecs_log_name = "/ecs/${var.task_family}"
 }
 
+module "spa" {
+  source      = "../modules/s3/"
+  alb         = module.alb.alb_dns_name
+  bucket_name = "spafe4e4ce-2024"
+}
+
 ## AWS Learner Lab does not allow to use grafana
 #module "grafana" {
 #  source = "./modules/grafana"
