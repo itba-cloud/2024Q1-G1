@@ -54,6 +54,7 @@ module "rds" {
   password               = var.rds_password
   subnet_ids             = [module.vpc.subnet_db1, module.vpc.subnet_db2]
   vpc_security_group_ids = [module.security_groups.rds_security_group_id]
+  multi_az_rds           = false
 }
 
 module "security_groups" {
@@ -76,6 +77,7 @@ module "spa" {
   source      = "../modules/s3/"
   alb         = module.alb.alb_dns_name
   bucket_name = "spafe4e4ce-2024"
+  role        = data.aws_iam_role.lab_role.arn
 }
 
 ## AWS Learner Lab does not allow to use grafana

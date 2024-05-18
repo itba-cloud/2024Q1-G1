@@ -1,19 +1,41 @@
 resource "aws_s3_bucket" "spa_bucket" {
   bucket = var.bucket_name
-  acl    = "public-read"
+}
 
-  website {
-    index_document = "index.html"
-    error_document = "error.html"
+resource "aws_s3_bucket_ownership_controls" "spa_bucket_owner_controls" {
+  bucket = aws_s3_bucket.spa_bucket.bucket
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
+
+resource "aws_s3_bucket_website_configuration" "spa_website" {
+  bucket = aws_s3_bucket.spa_bucket.bucket
+
+  index_document {
+    suffix = "index.html"
   }
 
-  cors_rule {
-    allowed_headers = ["*"]
-    allowed_methods = ["GET"]
-    allowed_origins = ["*"]
-    expose_headers  = ["ETag"]
-    max_age_seconds = 3000
+  error_document {
+    key = "error.html"
   }
+}
+
+resource "aws_s3_bucket_policy" "spa_bucket_policy" {
+  bucket = aws_s3_bucket.spa_bucket.id
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "PublicRead",
+        "Effect": "Allow",
+        "Principal": "*",
+        "Action": "s3:GetObject",
+        "Resource": "arn:aws:s3:::${aws_s3_bucket.spa_bucket.bucket}/*"
+      }
+    ]
+  })
 }
 
 resource "null_resource" "build_and_deploy_spa" {
@@ -34,6 +56,7 @@ resource "null_resource" "build_and_deploy_spa" {
   }
 
   depends_on = [
-    aws_s3_bucket.spa_bucket
+    aws_s3_bucket.spa_bucket,
+    aws_s3_bucket_ownership_controls.spa_bucket_owner_controls
   ]
 }

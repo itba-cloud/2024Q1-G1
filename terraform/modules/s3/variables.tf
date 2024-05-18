@@ -7,3 +7,8 @@ variable "alb" {
   description = "The url of the application load balancer"
   type = string
 }
+
+variable "role" {
+  description = "Role for bucket"
+  type = string
+}
