@@ -54,7 +54,6 @@ module "rds" {
   password               = var.rds_password
   subnet_ids             = [module.vpc.subnet_db1, module.vpc.subnet_db2]
   vpc_security_group_ids = [module.security_groups.rds_security_group_id]
-  multi_az_rds = var.multi_az_rds
 }
 
 module "security_groups" {
