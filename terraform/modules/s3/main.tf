@@ -48,7 +48,7 @@ resource "null_resource" "build_and_deploy_spa" {
       set -e
       echo "Setting environment variables"
       export VITE_APP_BASE_PATH='/'
-      export VITE_API_BASE_URL='http://${var.alb}'
+      export VITE_API_BASE_URL='http://${var.alb}:8080'
       
       echo "Listing contents of the cloned repository"
       
