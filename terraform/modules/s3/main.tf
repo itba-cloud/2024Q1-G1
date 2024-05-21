@@ -1,3 +1,4 @@
+
 resource "aws_s3_bucket" "spa_bucket" {
   bucket = var.bucket_name
 }

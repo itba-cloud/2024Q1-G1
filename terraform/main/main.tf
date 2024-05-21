@@ -76,7 +76,7 @@ module "cloudwatch" {
 module "spa" {
   source      = "../modules/s3/"
   alb         = module.alb.alb_dns_name
-  bucket_name = "spafe4e4ce-2024"
+  bucket_name = var.s3_spa_prefix
   role        = data.aws_iam_role.lab_role.arn
   region      = var.aws_region
 }

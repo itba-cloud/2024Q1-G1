@@ -114,3 +114,8 @@ variable "multi_az_rds" {
   description = "Boolean to determine RDS replication"
   type = bool
 }
+
+variable "s3_spa_prefix" {
+  description = "Prefix for SPA's bucket"
+  type = string
+}
