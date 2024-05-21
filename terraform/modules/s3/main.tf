@@ -3,27 +3,32 @@ resource "aws_s3_bucket" "spa_bucket" {
   bucket = var.bucket_name
 }
 
-resource "aws_s3_bucket_ownership_controls" "spa_bucket_owner_controls" {
-  bucket = aws_s3_bucket.spa_bucket.bucket
 
+resource "aws_s3_bucket_ownership_controls" "spa_bucket" {
+  bucket = aws_s3_bucket.spa_bucket.id
   rule {
-    object_ownership = "BucketOwnerPreferred"
+  object_ownership = "BucketOwnerPreferred"
   }
 }
-
-resource "aws_s3_bucket_website_configuration" "spa_website" {
-  bucket = aws_s3_bucket.spa_bucket.bucket
-
-  index_document {
-    suffix = "index.html"
-  }
-
-  error_document {
-    key = "error.html"
-  }
+resource "aws_s3_bucket_acl" "spa_bucket" {
+  bucket = aws_s3_bucket.spa_bucket.id
+  acl = "public-read"
+  depends_on = [
+  aws_s3_bucket_ownership_controls.spa_bucket,
+  aws_s3_bucket_public_access_block.spa_bucket
+  ]
 }
 
-resource "aws_s3_bucket_policy" "spa_bucket_policy" {
+resource "aws_s3_bucket_public_access_block" "spa_bucket" {
+  bucket = aws_s3_bucket.spa_bucket.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
+resource "aws_s3_bucket_policy" "spa_bucket" {
   bucket = aws_s3_bucket.spa_bucket.id
   policy = jsonencode({
     "Version" : "2012-10-17",
@@ -39,7 +44,19 @@ resource "aws_s3_bucket_policy" "spa_bucket_policy" {
   })
 }
 
-resource "null_resource" "build_and_deploy_spa" {
+resource "aws_s3_bucket_website_configuration" "spa_bucket" {
+  bucket = aws_s3_bucket.spa_bucket.bucket
+
+  index_document {
+    suffix = "index.html"
+  }
+
+  error_document {
+    key = "error.html"
+  }
+}
+
+resource "null_resource" "spa_bucket" {
   triggers = {
     always_run = "${timestamp()}"
   }
