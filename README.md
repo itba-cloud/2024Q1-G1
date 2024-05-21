@@ -9,7 +9,11 @@ The goal of the web application is to create a community of readers, where all o
 
 For example, let's imagine the user Marco, who enjoys reading philosophy in multiple languages. Thanks to other readers with German heritage (for example), he can borrow a philosophy book from a German author that he could not have read by going to a library in Argentina.
 
-## Terraform
+## Terraform Prerequisites
+
+`docker` and `npm` are necessary for building the backend and the spa respectively. We reccomend using node version manager `nvm` and node version should be at least v19, we used `v20.13.1`
+
+## Terraform Build
 
 First go to the terraform folder
 ```bash
@@ -62,6 +66,8 @@ terraform init
 ```
 
 Note, if running the commands from ARM architecture (e.g. apple silicon) the variable `ecs_task_cpu_architecture` in the  `main/sample.tfvars` needs to be changed to `ARM64` or `X86_64` if running on any other architecture. Similarly, `docker` has to be installed in the system.
+
+Similarly, the name of the bucket for the SPA should be unique, chances are that in the current tfvars is not
 
 Finally, let's deploy the architecture to AWS 🚀
 
