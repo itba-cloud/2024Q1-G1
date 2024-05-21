@@ -6,7 +6,7 @@ resource "aws_s3_bucket_ownership_controls" "spa_bucket_owner_controls" {
   bucket = aws_s3_bucket.spa_bucket.bucket
 
   rule {
-    object_ownership = "BucketOwnerEnforced"
+    object_ownership = "BucketOwnerPreferred"
   }
 }
 
