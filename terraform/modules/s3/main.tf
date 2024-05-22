@@ -71,26 +71,29 @@ resource "null_resource" "spa_bucket" {
     always_run = "${timestamp()}"
   }
 
- provisioner "local-exec" {
-    command = <<-EOF
-      $env:VITE_APP_BASE_PATH = '/'
-      $env:VITE_API_BASE_URL = "http://${var.alb}:8080"
+  provisioner "local-exec" {
+    command = <<EOF
+      set -e
+      echo "Setting environment variables"
+      export VITE_APP_BASE_PATH='/'
+      export VITE_API_BASE_URL='http://${var.alb}:8080'
 
-      Set-Location -Path "../../LendARead2/frontend"
+      echo "Listing contents of the cloned repository"
 
+      echo "Navigating to frontend directory"
+      cd ../../LendARead2/frontend
+
+      echo "Installing dependencies"
       npm install
 
+      echo "Building the SPA"
       npm run build
 
-      aws s3 sync dist/ "s3://${aws_s3_bucket.spa_bucket.bucket}" --delete --region ${var.region}
-    EOF
-    interpreter = ["PowerShell", "-Command"]
-  }
+      echo "Syncing build output to S3"
+      aws s3 sync dist/ s3://${aws_s3_bucket.spa_bucket.bucket} --delete --region ${var.region}
 
-  depends_on = [
-    aws_s3_bucket.spa_bucket
-]
-}
+    EOF
+  }
 
 resource "aws_cloudfront_origin_access_identity" "spa_oai" {
   comment = "OAI for SPA Bucket"
