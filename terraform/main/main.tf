@@ -73,12 +73,23 @@ module "cloudwatch" {
   ecs_log_name = "/ecs/${var.task_family}"
 }
 
+module "cloudfront" {
+  source          = "../modules/cloudfront"
+  s3_bucket_name  = var.s3_spa_prefix
+  aliases         = var.cloudfront_aliases
+}
+
 module "spa" {
   source      = "../modules/s3/"
   alb         = module.alb.alb_dns_name
   bucket_name = var.s3_spa_prefix
   role        = data.aws_iam_role.lab_role.arn
   region      = var.aws_region
+  cloudfront_distribution = module.cloudfront.cloudfront_domain_name
+}
+
+output "cloudfront_domain_name" {
+  value = module.cloudfront.cloudfront_domain_name
 }
 
 ## AWS Learner Lab does not allow to use grafana
