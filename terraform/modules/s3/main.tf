@@ -94,6 +94,7 @@ resource "null_resource" "spa_bucket" {
 
     EOF
   }
+}
 
 resource "aws_cloudfront_origin_access_identity" "spa_oai" {
   comment = "OAI for SPA Bucket"
