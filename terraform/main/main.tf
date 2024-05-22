@@ -80,11 +80,11 @@ module "cloudfront" {
 }
 
 module "spa" {
-  source      = "../modules/s3/"
-  alb         = module.alb.alb_dns_name
-  bucket_name = var.s3_spa_prefix
-  role        = data.aws_iam_role.lab_role.arn
-  region      = var.aws_region
+  source                  = "../modules/s3/"
+  alb                     = module.alb.alb_dns_name
+  bucket_name             = var.s3_spa_prefix
+  role                    = data.aws_iam_role.lab_role.arn
+  region                  = var.aws_region
   cloudfront_distribution = module.cloudfront.cloudfront_domain_name
 }
 
