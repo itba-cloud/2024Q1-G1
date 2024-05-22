@@ -119,3 +119,9 @@ variable "s3_spa_prefix" {
   description = "Prefix for SPA's bucket"
   type = string
 }
+
+variable "cloudfront_aliases" {
+  description = "List of CNAMEs (alternate domain names) for the CloudFront distribution"
+  type        = list(string)
+  default     = []
+}
