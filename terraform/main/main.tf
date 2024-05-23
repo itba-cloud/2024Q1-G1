@@ -1,12 +1,10 @@
-data "aws_iam_role" "lab_role" {
-  name = var.role
-}
-
-
 provider "aws" {
   region = var.aws_region
 }
 
+data "aws_iam_role" "lab_role" {
+  name = var.role
+}
 
 module "ecr" {
   source               = "../modules/ecr"
@@ -73,13 +71,6 @@ module "cloudwatch" {
   ecs_log_name = "/ecs/${var.task_family}"
 }
 
-/* module "cloudfront" {
-  source          = "../modules/cloudfront"
-  s3_bucket_name  = var.s3_spa_prefix
-  aliases         = var.cloudfront_aliases
-  aws_region          = var.aws_region
-} */
-
 module "spa" {
   source                  = "../modules/s3/"
   alb                     = module.alb.alb_dns_name
@@ -88,15 +79,14 @@ module "spa" {
   region                  = var.aws_region
 }
 
-/* output "cloudfront_domain_name" {
+module "cloudfront" {
+  source          = "../modules/cloudfront"
+  s3_bucket_name  = module.spa.bucket_name
+  aliases         = var.cloudfront_aliases
+  aws_region      = var.aws_region
+  bucket_id       = module.spa.bucket_id
+}
+
+output "cloudfront_domain_name" {
   value = module.cloudfront.cloudfront_domain_name
-} */
-
-## AWS Learner Lab does not allow to use grafana
-#module "grafana" {
-#  source = "./modules/grafana"
-# aws_region             =  var.aws_region
-#  grafana_workspace_name = var.grafana_name
-#  role_arn = data.aws_iam_role.lab_role.arn
-#}
-
+}
