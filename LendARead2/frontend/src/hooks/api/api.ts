@@ -10,7 +10,7 @@ let baseUrl = `${import.meta.env.VITE_API_BASE_URL}${import.meta.env.VITE_APP_BA
 // }
 
 const api = axios.create({
-    baseURL: baseUrl + "webapp/api",
+    baseURL: baseUrl + "/api",
     timeout: 10000,
     paramsSerializer: params => Qs.stringify(params, { arrayFormat: 'repeat' })
 });
