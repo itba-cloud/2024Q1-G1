@@ -19,3 +19,8 @@ variable "aws_region" {
   description = "AWS region"
   type=string
 }
+
+variable "alb_dns_name" {
+  description = "The DNS name of the ALB"
+  type        = string
+}

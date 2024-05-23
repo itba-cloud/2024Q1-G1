@@ -18,4 +18,9 @@ variable "region" {
   type        = string
 }
 
+variable "cloudfront_domain" {
+  description = "Cloudfront domain"
+  type        = string
+}
+
 

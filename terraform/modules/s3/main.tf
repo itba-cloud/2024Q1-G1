@@ -69,7 +69,7 @@ resource "null_resource" "spa_bucket" {
   provisioner "local-exec" {
     command = <<-EOF
       $env:VITE_APP_BASE_PATH = '/'
-      $env:VITE_API_BASE_URL = "http://${var.alb}:8080"
+      $env:VITE_API_BASE_URL = "https://${var.cloudfront_domain}/api"
 
       Set-Location -Path "../../LendARead2/frontend"
 

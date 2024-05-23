@@ -77,6 +77,8 @@ module "spa" {
   bucket_name             = var.s3_spa_prefix
   role                    = data.aws_iam_role.lab_role.arn
   region                  = var.aws_region
+
+  cloudfront_domain = module.cloudfront.cloudfront_domain_name
 }
 
 module "cloudfront" {
@@ -85,6 +87,7 @@ module "cloudfront" {
   aliases         = var.cloudfront_aliases
   aws_region      = var.aws_region
   bucket_id       = module.spa.bucket_id
+  alb_dns_name    = module.alb.alb_dns_name
 }
 
 output "cloudfront_domain_name" {

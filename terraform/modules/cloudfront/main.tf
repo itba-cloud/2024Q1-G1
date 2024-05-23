@@ -8,6 +8,18 @@ resource "aws_cloudfront_distribution" "this" {
     }
   }
 
+  origin {
+    domain_name = var.alb_dns_name
+    origin_id   = "ALB-${var.alb_dns_name}"
+
+    custom_origin_config {
+      http_port              = 8080
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
+  }
+
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "CloudFront distribution for SPA"
@@ -33,6 +45,26 @@ resource "aws_cloudfront_distribution" "this" {
     max_ttl                = 86400
   }
 
+  ordered_cache_behavior {
+    path_pattern     = "/api/*"
+    target_origin_id = "ALB-${var.alb_dns_name}"
+
+    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods   = ["GET", "HEAD"]
+    viewer_protocol_policy = "redirect-to-https"
+
+    forwarded_values {
+      query_string = true
+      cookies {
+        forward = "all"
+      }
+    }
+
+    min_ttl     = 0
+    default_ttl = 0
+    max_ttl     = 0
+  }
+
   restrictions {
     geo_restriction {
       restriction_type = "none"
@@ -47,3 +79,5 @@ resource "aws_cloudfront_distribution" "this" {
 resource "aws_cloudfront_origin_access_identity" "this" {
   comment = "Origin Access Identity for CloudFront"
 }
+
+
