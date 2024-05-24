@@ -9,7 +9,18 @@ variable "aliases" {
   default     = []
 }
 
+
+variable "bucket_id" {
+  description = "The id of the S3 bucket to deploy the SPA"
+  type        = string
+}
+
 variable "aws_region" {
   description = "AWS region"
   type=string
+}
+
+variable "alb_dns_name" {
+  description = "The DNS name of the ALB"
+  type        = string
 }
