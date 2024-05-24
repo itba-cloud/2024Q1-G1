@@ -46,7 +46,7 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   ordered_cache_behavior {
-    path_pattern     = "/api/*"
+    path_pattern     = "/webapp/api/*"
     target_origin_id = "ALB-${var.alb_dns_name}"
 
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]

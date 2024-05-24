@@ -125,3 +125,8 @@ variable "cloudfront_aliases" {
   type        = list(string)
   default     = []
 }
+
+variable "operating_system" {
+  description = "Operating system for the S3 task"
+  type        = string
+}

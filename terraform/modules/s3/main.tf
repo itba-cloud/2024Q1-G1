@@ -60,7 +60,6 @@ resource "aws_s3_bucket_policy" "site" {
     aws_s3_bucket_public_access_block.spa_bucket
   ]
 }
-
 resource "null_resource" "spa_bucket" {
   triggers = {
     always_run = "${timestamp()}"
@@ -68,10 +67,15 @@ resource "null_resource" "spa_bucket" {
 
   provisioner "local-exec" {
     command = <<-EOF
-      $env:VITE_APP_BASE_PATH = '/'
-      $env:VITE_API_BASE_URL = "https://${var.cloudfront_domain}"
+      if [ "${var.operating_system}" != "windows" ]; then
+        export VITE_APP_BASE_PATH='/'
+        export VITE_API_BASE_URL="https://${var.cloudfront_domain}"
+      else
+        $env:VITE_APP_BASE_PATH = '/'
+        $env:VITE_API_BASE_URL = "https://${var.cloudfront_domain}"
+      fi
 
-      Set-Location -Path "../../LendARead2/frontend"
+      cd ../../LendARead2/frontend
 
       npm install
 
@@ -79,7 +83,7 @@ resource "null_resource" "spa_bucket" {
 
       aws s3 sync dist/ "s3://${aws_s3_bucket.spa_bucket.bucket}" --delete --region ${var.region}
     EOF
-    interpreter = ["PowerShell", "-Command"]
+    interpreter = ["bash", "-c"]
   }
 
   depends_on = [

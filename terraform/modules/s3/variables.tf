@@ -23,4 +23,9 @@ variable "cloudfront_domain" {
   type        = string
 }
 
+variable "operating_system" {
+  description = "Operating system"
+  type        = string
+}
+
 

@@ -79,6 +79,7 @@ module "spa" {
   region                  = var.aws_region
 
   cloudfront_domain = module.cloudfront.cloudfront_domain_name
+  operating_system  = var.operating_system
 }
 
 module "cloudfront" {
