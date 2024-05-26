@@ -67,13 +67,8 @@ resource "null_resource" "spa_bucket" {
 
   provisioner "local-exec" {
     command = <<-EOF
-      if [ "${var.operating_system}" != "windows" ]; then
-        export VITE_APP_BASE_PATH='/'
-        export VITE_API_BASE_URL="https://${var.cloudfront_domain}"
-      else
-        $env:VITE_APP_BASE_PATH = '/'
-        $env:VITE_API_BASE_URL = "https://${var.cloudfront_domain}"
-      fi
+      export VITE_APP_BASE_PATH='/'
+      export VITE_API_BASE_URL="https://${var.cloudfront_domain}"
 
       cd ../../LendARead2/frontend
 
