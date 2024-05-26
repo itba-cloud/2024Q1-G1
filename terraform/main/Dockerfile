@@ -1,9 +1,10 @@
 # Use a base image with JDK installed, required for Tomcat and Maven
 FROM openjdk:8
 
+ARG API_URL
 # Set environment variables for the application
 ENV VITE_APP_BASE_PATH='/webapp' \
-    VITE_APP_BASE_URL='http://lb-1891763237.us-east-1.elb.amazonaws.com:8080' \
+    VITE_APP_BASE_URL='' \
     DB_URL_ENV="jdbc:postgresql://database-1.ct80qs8yuayi.us-east-1.rds.amazonaws.com:5432/" \
     DB_USERNAME_ENV="postgres" \
     DB_PASSWORD_ENV="1SRcd8pto"
