@@ -28,4 +28,9 @@ variable "operating_system" {
   type        = string
 }
 
+variable "cloudfront_origin_access_identity_id" {
+  description = "The OAI for the bucket"
+  type        = string
+}
+
 

@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "bucket-fairly-completely-equally-main-satyr"
+    bucket         = "bucket-apparently-typically-thankfully-upright-coral"
     key            = "terraform/state"
     region         = "us-east-1"
     encrypt        = true
