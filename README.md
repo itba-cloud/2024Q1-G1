@@ -9,6 +9,10 @@ The goal of the web application is to create a community of readers, where all o
 
 For example, let's imagine the user Marco, who enjoys reading philosophy in multiple languages. Thanks to other readers with German heritage (for example), he can borrow a philosophy book from a German author that he could not have read by going to a library in Argentina.
 
+# Architecture Diagram
+
+![Diagram](diagram.png)
+
 ## Terraform Prerequisites
 
 `docker` and `npm` are necessary for building the backend and the spa respectively. We reccomend using node version manager `nvm` and node version should be at least v19, we used `v20.13.1`
