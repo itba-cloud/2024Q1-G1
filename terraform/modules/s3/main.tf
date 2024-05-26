@@ -64,8 +64,9 @@ resource "null_resource" "spa_bucket_deploy" {
   }
   provisioner "local-exec" {
     command = <<-EOF
-      $env:VITE_APP_BASE_PATH = '/'
-      $env:VITE_API_BASE_URL = "https://${var.cloudfront_domain}"
+      export VITE_APP_BASE_PATH='/'
+      export VITE_API_BASE_URL="https://${var.cloudfront_domain}"
+
 
       Set-Location -Path "../../LendARead2/frontend"
 
