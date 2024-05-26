@@ -1,5 +1,11 @@
+resource "random_pet" "bucket_suffix" {
+  length    = 3
+  separator = "-"
+}
+
+
 resource "aws_s3_bucket" "spa_bucket" {
-  bucket = var.bucket_name
+  bucket = "${var.bucket_name}-${random_pet.bucket_suffix.id}"
 }
 
 resource "aws_s3_bucket_public_access_block" "spa_bucket" {
@@ -66,17 +72,13 @@ resource "null_resource" "spa_bucket_deploy" {
     command = <<-EOF
       export VITE_APP_BASE_PATH='/'
       export VITE_API_BASE_URL="https://${var.cloudfront_domain}"
-
-
-      Set-Location -Path "../../LendARead2/frontend"
-
+      cd ../../LendARead2/frontend
       npm install
 
       npm run build
 
       aws s3 sync dist/ "s3://${aws_s3_bucket.spa_bucket.bucket}" --delete --region ${var.region}
     EOF
-    interpreter = ["PowerShell", "-Command"]
   }
 
 
