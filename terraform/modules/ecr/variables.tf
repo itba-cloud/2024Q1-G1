@@ -13,3 +13,7 @@ variable "image_tag_mutability" {
   description = "Tag mutability setting of the repository"
 }
 
+variable "api_base_url" {
+  description = "Api base url"
+  type = string
+}

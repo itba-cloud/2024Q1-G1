@@ -11,6 +11,7 @@ module "ecr" {
   aws_region           = var.aws_region
   repository_name      = var.ecr_name
   image_tag_mutability = var.ecr_mutability
+  api_base_url = module.cloudfront.cloudfront_domain_name
 }
 
 module "ecs" {
