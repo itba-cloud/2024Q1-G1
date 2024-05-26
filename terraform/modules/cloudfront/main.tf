@@ -1,3 +1,7 @@
+resource "aws_cloudfront_origin_access_identity" "this" {
+  comment = "Origin Access Identity for CloudFront"
+}
+
 resource "aws_cloudfront_distribution" "this" {
   origin {
     domain_name = "${var.s3_bucket_name}.s3.amazonaws.com"
@@ -76,8 +80,6 @@ resource "aws_cloudfront_distribution" "this" {
   }
 }
 
-resource "aws_cloudfront_origin_access_identity" "this" {
-  comment = "Origin Access Identity for CloudFront"
-}
+
 
 

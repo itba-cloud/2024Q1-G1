@@ -5,10 +5,10 @@ resource "aws_s3_bucket" "spa_bucket" {
 resource "aws_s3_bucket_public_access_block" "spa_bucket" {
   bucket = aws_s3_bucket.spa_bucket.id
 
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_website_configuration" "spa_bucket" {
@@ -32,50 +32,42 @@ resource "aws_s3_bucket_ownership_controls" "spa_bucket" {
 
 resource "aws_s3_bucket_acl" "spa_bucket" {
   bucket = aws_s3_bucket.spa_bucket.id
-  acl    = "public-read"
+  acl    = "private"
+
   depends_on = [
     aws_s3_bucket_ownership_controls.spa_bucket,
     aws_s3_bucket_public_access_block.spa_bucket
   ]
 }
 
-resource "aws_s3_bucket_policy" "site" {
+resource "aws_s3_bucket_policy" "spa_bucket_policy" {
   bucket = aws_s3_bucket.spa_bucket.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
-        Sid       = "PublicReadGetObject"
+        Sid       = "AllowCloudFrontAccessOnly"
         Effect    = "Allow"
-        Principal = "*"
+        Principal = {
+          AWS = "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity ${var.cloudfront_origin_access_identity_id}"
+        }
         Action    = "s3:GetObject"
-        Resource = [
-          aws_s3_bucket.spa_bucket.arn,
-          "${aws_s3_bucket.spa_bucket.arn}/*",
-        ]
-      },
+        Resource  = "${aws_s3_bucket.spa_bucket.arn}/*"
+      }
     ]
   })
-  depends_on = [
-    aws_s3_bucket_public_access_block.spa_bucket
-  ]
 }
-resource "null_resource" "spa_bucket" {
+
+resource "null_resource" "spa_bucket_deploy" {
   triggers = {
     always_run = "${timestamp()}"
   }
-
   provisioner "local-exec" {
     command = <<-EOF
-      if [ "${var.operating_system}" != "windows" ]; then
-        export VITE_APP_BASE_PATH='/'
-        export VITE_API_BASE_URL="https://${var.cloudfront_domain}"
-      else
-        $env:VITE_APP_BASE_PATH = '/'
-        $env:VITE_API_BASE_URL = "https://${var.cloudfront_domain}"
-      fi
+      $env:VITE_APP_BASE_PATH = '/'
+      $env:VITE_API_BASE_URL = "https://${var.cloudfront_domain}"
 
-      cd ../../LendARead2/frontend
+      Set-Location -Path "../../LendARead2/frontend"
 
       npm install
 
@@ -83,10 +75,13 @@ resource "null_resource" "spa_bucket" {
 
       aws s3 sync dist/ "s3://${aws_s3_bucket.spa_bucket.bucket}" --delete --region ${var.region}
     EOF
-    interpreter = ["bash", "-c"]
+    interpreter = ["PowerShell", "-Command"]
   }
 
+
   depends_on = [
-    aws_s3_bucket.spa_bucket
+    aws_s3_bucket.spa_bucket,
+    aws_s3_bucket_acl.spa_bucket,
+    aws_s3_bucket_policy.spa_bucket_policy
   ]
 }
