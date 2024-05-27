@@ -69,6 +69,15 @@ const useUserAssetInstance = (location, id) => {
             const asset: AssetApi = (await api_.get(assetinstace.assetReference)).data
             const lang = (await api_.get(asset.language)).data
 
+            const modifyImageUrl = (url) => {
+                if (url.startsWith("http:")) {
+                    url = url.replace("http:", "https:");
+                }
+                if (url.includes(":8080")) {
+                    url = url.replace(":8080", "");
+                }
+                return url;
+            }
 
             const assetDetails_ = {
                 title: asset.title,
@@ -77,7 +86,7 @@ const useUserAssetInstance = (location, id) => {
                 description: assetinstace.description,
                 language: lang.name,
                 isbn: asset.isbn,
-                imageUrl: assetinstace.imageReference,
+                imageUrl: modifyImageUrl(assetinstace.imageReference),
                 isReservable: assetinstace.reservable,
                 status: assetinstace.status,
                 id: id, //wtf this does
