@@ -22,7 +22,7 @@ module "ecs" {
   subnets            = [module.vpc.subnet_private1, module.vpc.subnet_private2]
   security_groups    = [module.security_groups.ecs_task_security_group_id]
   repository_url     = module.ecr.repository_url
-  lb_dns_name        = module.alb.alb_dns_name
+  lb_dns_name        = module.cloudfront.cloudfront_domain_name
   db_endpoint        = module.rds.db_endpoint
   db_username        = module.rds.db_username
   db_password        = module.rds.db_password
