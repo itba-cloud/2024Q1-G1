@@ -24,7 +24,20 @@ const BookCard = ({ book }) => {
         assetInstanceNumber,
     } = book;
 
-    const url_book_image = "url('" + image + '?size=PORTADA' + "')"
+
+
+    const modifyImageUrl = (url) => {
+        if (url.startsWith("http:")) {
+            url = url.replace("http:", "https:");
+        }
+        if (url.includes(":8080")) {
+            url = url.replace(":8080", "");
+        }
+        return url;
+    }
+
+    const modifiedImage = modifyImageUrl(image);
+    const url_book_image = "url('" + modifiedImage + '?size=PORTADA' + "')";
 
     const {user} = useContext(AuthContext)
 

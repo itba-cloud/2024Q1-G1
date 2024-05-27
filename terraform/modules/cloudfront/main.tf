@@ -37,7 +37,7 @@ resource "aws_cloudfront_distribution" "this" {
     target_origin_id = var.bucket_id
 
     forwarded_values {
-      query_string = false
+      query_string = true
       cookies {
         forward = "none"
       }
