@@ -404,7 +404,7 @@
 
   </modules>
 
-  <!--  For frontend-->
+  <!--  
   <build>
     <pluginManagement>
       <plugins>
@@ -421,5 +421,5 @@
       </plugins>
     </pluginManagement>
   </build>
-
+For frontend-->
 </project>

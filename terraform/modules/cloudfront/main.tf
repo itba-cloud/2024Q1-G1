@@ -54,7 +54,7 @@ resource "aws_cloudfront_distribution" "this" {
     target_origin_id = "ALB-${var.alb_dns_name}"
 
     allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
-    cached_methods   = ["GET", "HEAD"]
+    cached_methods   = ["GET", "HEAD", "OPTIONS"]
     viewer_protocol_policy = "redirect-to-https"
 
     forwarded_values {
@@ -62,6 +62,7 @@ resource "aws_cloudfront_distribution" "this" {
       cookies {
         forward = "all"
       }
+      headers = ["*"]
     }
 
     min_ttl     = 0
