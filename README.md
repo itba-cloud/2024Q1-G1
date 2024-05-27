@@ -85,6 +85,7 @@ modules
 ├── rds
 ├── s3
 ├── sg
+├── vpce
 └── vpc
 ```
 
@@ -120,9 +121,9 @@ This module configures security groups in AWS to control network traffic to and 
 ### 10. VPC (Virtual Private Cloud)
 This module configures a VPC in AWS to isolate network infrastructure.
 
-## Architecture Diagram
-
-![Architecture Diagram](image.png)
+### 11. VPC Endpoints
+This module configures a VPC Endpoint for the ECR and Cloudwatch, nonetheless we did not had time to include it in the main file.
+ 
 ## Meta-Arguments Used
 
 #### lifecycle
