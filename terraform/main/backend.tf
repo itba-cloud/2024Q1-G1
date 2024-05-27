@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket         = "bucket-wholly-uniformly-deeply-renewing-chipmunk"
+    bucket         = "bucket-fairly-completely-equally-main-satyr"
     key            = "terraform/state"
     region         = "us-east-1"
     encrypt        = true
