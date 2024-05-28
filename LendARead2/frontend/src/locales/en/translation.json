@@ -1,0 +1,479 @@
+{
+  "errors": {
+    "failedToFetchBorrowerReview": "Failed to fetch borrower review",
+    "failedToFetchLenderReview": "Failed to fetch lender review",
+    "failedToFetchAssetInstanceReview": "Failed to fetch asset instance reviews",
+    "failedDeletingAssetDetails": "Failed deleting asset details",
+    "failedFetchingAssetDetails": "Failed fetching asset details",
+    "failedPatchAsset": "Failed editing asset",
+    "failedPostImage": "Failed posting image",
+    "failedAddingLocation": "Failed adding location",
+    "failedPatchLocation": "Failed editing location",
+    "failedToFetchLendings": "Failed to fetch lendings",
+    "failedDeleteLocation": "Failed deleting location",
+    "failedToFetchBooks": "Failed to fetch user books",
+    "cancelBorrowedBook": "Failed to cancel borrowed book",
+    "failedToFetchLocation": "Failed to fetch location",
+    "failedToFetchUserDetails": "Failed to fetch user details",
+    "failedToCheckCanConfirmLending": "Failed to check if can confirm lending",
+    "failedCheckCanReview": "Failed to check if can review",
+    "failedToUpdateState": "Failed to update state",
+    "failedToFetchLanguages": "Failed to fetch languages",
+    "failedToFetchLenderReviews": "Failed to fetch lender reviews",
+    "failedGettingLocations": "Failed getting locations",
+    "failedToFetchBorrowerReviews": "Failed to fetch borrower reviews",
+    "failedToChangeRole": "Failed to change role"
+  },
+  "Open main menu": "Open main menu",
+  "Your profile": "Your Profile",
+  "Dashboard": "Dashboard",
+  "register": "Register",
+    "login": "Login",
+  "forgotPassword": "Forgot Password",
+  "changePasswordTitle": "Change Password",
+  "Team": "Team",
+  "delivered_text_borrower": "Great! The lender has approved your request. He should contact you soon to arrange the delivery.",
+  "not_allowed": {
+    "title": "Not allowed",
+    "subtitle": "You are not allowed to access this page"
+  },
+  "Projects": "Projects",
+  "Calendar": "Calendar",
+  "active_loans": "Loan Requests",
+  "errorPasswordEmail": "Error requesting the password reset email",
+  "email": "Email",
+  "changePassword": {
+    "passwordValidationError": "Password must contain at least one lowercase letter, one uppercase letter, one digit, be at least 8 characters long, and include a special character.",
+    "caption": "Check your email inbox, you will receive a verification code",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "invalidVerificationCode": "Invalid verification code",
+    "somethingWentWrong": "Invalid email or validation code",
+    "resendToken": "Haven't received the token? Resend token",
+    "resentToken": "Token resent! Please check your email",
+    "title": "Change password",
+    "verificationCode": "Verification code",
+    "verificationCodePlaceholder": "Enter your verification code",
+    "enterEmail"  : "Enter your email",
+    "newPassword": "New password",
+    "newPasswordPlaceholder": "Enter new password",
+    "repeatNewPassword": "Repeat new password",
+    "repeatNewPasswordPlaceholder": "Repeat new password",
+    "changePasswordButton": "Change password"
+  },
+  "userProfile": {
+    "lender": "Lender ",
+    "borrower": "Borrower ",
+    "my_locations": "My Locations",
+    "lender_reviews": "Lender Reviews",
+    "borrower_reviews": "Borrower Reviews"
+  },
+"auth": {
+    "login": "Login",
+    "register": "Register",
+    "username": "Username",
+    "email": "Email",
+    "password": "Password",
+    "repeatPassword": "Repeat Password",
+    "logInBtn": "Log In",
+    "registerBtn": "Register",
+    "doNotHaveAccount": "Don't have an account? Register",
+    "alreadyHaveAccount": "Already have an account? Login",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember Me",
+    "loginError": "Invalid username or password",
+    "emailValidationError": "Email must be valid and between 3 to 100 characters long.",
+    "passwordValidationError": "Password must contain at least one lowercase letter, one uppercase letter, one digit, be at least 8 characters long, and include a special character.",
+    "repeatPasswordValidationError": "Passwords do not match.",
+    "nameValidationError": "Name must be between 3 to 100 characters long."
+  },
+  "forgotpassword": {
+    "title": "Forgot Password",
+    "changePasswordButton": "Change Password",
+    "emailPlaceholder": "Email"
+  },
+  "editAsset": "Edit Asset",
+  "details": "Details",
+  "maxDaysValidationError": "Invalid, has to be more than 1",
+  "physicalConditionValidationError": "Invalid, not a valid physical condition",
+  "descriptionValidationError": "Invalid, maximum 1000 characters for description",
+  "editAssetView.changeImage": "Change Image",
+  "physicalConditionLabel": "Physical Condition",
+  "maxDaysLabel": "Maximum Days",
+  "descriptionLabel": "Description",
+  "isReservableLabel": "Is Reservable",
+  "statusLabel": "Status",
+  "shortcut": "Shortcuts",
+  "lending_period_from": "Period",
+  "to": "to",
+  "settings": "Settings",
+  "maxDays": "Maximum Loan Days",
+  "borrowed_book_actions": "Borrowed Book Actions",
+  "lended_books_actions": "Lended Book Actions",
+  "canceled_text": "The lending was canceled, no options are available",
+  "loanRequestSent": "The loan request has been sent, please wait for the lender to accept it or cancel it if you no longer want to borrow the book.",
+  "userHomeView": {
+    "cancelTitle": "Cancel Lending",
+    "review": "Write a Review",
+    "cancelText": "Are you sure you want to cancel this lending request? This action is not reversible.",
+    "cancelButton": "Cancel Lending",
+    "confirmReturnTitle": "Confirm Return",
+    "confirmReturnText": "Do you happen to have the book back? If so confirm it's return so you can close the lending!",
+    "inProgressText": "You are all set! You should make arrangements for delivering the asset to the lender if you haven't already",
+    "confirmReturnButton": "Confirm Return",
+    "rejectLendingTitle": "Reject lending",
+    "rejectLendingText": "Rejecting the lending request is non-reversible. Do you want to reject the lending request?",
+    "rejectLendingButton": "Reject Lending",
+    "verifyLendingTitle": "Confirme lending",
+    "verifyLendingText": "Confirming the lending request means you accept to give the book the user that asked for it. Do you want to confirm the lending request?",
+    "verifyLendingButton": "Confirm lending",
+    "confirmBook": "Confirm Lending",
+    "pendingText": "This asset has an open lending request. Do you want to confirm or reject the lending request?",
+    "pendingText2": "This asset has an open lending request. Nonetheless you cannot confirm delivery because it's marked DELIVERED in another lending request.",
+    "changeReservability": "Change Reservability",
+    "changeReservabilityNo": "This asset is currently reservable. Do you want to make it non-reservable?",
+    "changeReservabilityYes": "This asset is currently not reservable. Do you want to make it reservable?",
+    "makeReservableNo": "Make Non-Reservable",
+    "makeReservableYes": "Make Reservable",
+    "minText": "Minimum Text: ",
+    "pending": "Pending",
+    "deleteTitle": "Delete Asset",
+    "deleteAssetText": "Are you sure you want to delete this asset? This action is not reversible.",
+    "deleteAsset": "Delete",
+    "makeNotReservable": "Make non reservable",
+    "makeReservable": "Make reservable",
+    "cannotMakeItNotReservable": "As long as it is reservable and has an ongoing lending, it cannot be NOT reservable",
+    "inProgress": "In Progress",
+    "verifyBook": "Verify Book",
+    "rejectAssetTitle": "Reject Asset",
+    "confirmReturn": "Confirm Return",
+    "changeVisibilityTitle": "Change Visibility",
+    "changeVisibilityTextPublic": "This asset is private. Would you like to make this asset public?",
+    "changeVisibilityTextPrivate": "This asset is public. Would you like to make this asset private?",
+    "changeVisibityPublic": {
+      "button": "Make Public"
+    },
+    "changeVisibityPrivate": {
+      "button": "Make Private"
+    },
+    "makePrivate": "Make Private",
+    "makePublic": "Make Public"
+  },
+  "makeReview": "Make a Review",
+  "userBookDetails": {
+    "makePrivate": "Make Private",
+    "makePublic": "Make Public",
+    "cannotMakeItPublic": "As long as it is not reservable and has an ongoing lending, it cannot be public"
+  },
+  "edit": "Edit",
+  "delete": "Delete",
+  "not_reservable": "Not Reservable",
+  "reservable": "Reservable",
+    "greeting": "Welcome, {{userEmail}}",
+  "my_books": "My Books",
+  "lended_books": "Lended Books",
+  "borrowed_books": "Borrowed Books",
+  "image": "Image",
+  "book_name": "Book Name",
+  "author": "Author",
+  "language": "Language",
+  "state": "State",
+  "no_books": "No books",
+  "become_lender": {
+    "title": "Become a Lender",
+    "subtitle": "Start lending your books today!",
+    "button": "Become Lender"
+  },
+  "filter_option": {
+    "all": "All",
+    "public": "Public",
+    "private": "Private"
+  },
+  "user_home_view": {
+    "all": "All",
+    "public": "Public",
+    "private": "Private"
+  },
+  "enum": {
+    "available": "Available",
+    "lent": "Lent"
+  },
+  "all": "All",
+  "private": "Private",
+  "public": "Public",
+  "PRIVATE": "Private",
+  "PUBLIC": "Public",
+  "pending": "Pending",
+  "delivered": "Delivered",
+  "active": "Active",
+  "canceled": "Canceled",
+  "overdue": "Overdue",
+  "rejected": "Rejected",
+  "finished": "Finished",
+  "physicalCondition": "Physical Condition",
+  "finished_lender": "The lending has finished, you can write a review of the borrower clicking the button below",
+  "finished_borrower": "The lending has finished, you can write a review of the lender and the book clicking the button below",
+  "title": "Title",
+  "start_date": "Start Date",
+  "visibility": "Visibility",
+  "location": "Location",
+  "return_date": "Return Date",
+  "user": "User",
+  "no_books_available": "No books",
+  "previous": "Previous",
+  "next": "Next",
+  "rejected_text": "The lending was rejected, no options are available ",
+  "finished_text": "The lending has finished and you have already written the user a review, no options are available ",
+  "landing": {
+    "hero": {
+      "title": "The new era of reading",
+      "subtitle": "A shared book is a multiplied story",
+      "btn": "Discover"
+    },
+    "recent": {
+      "title": "\nRecently added books\n"
+    },
+    "instructions": {
+      "title": "Looking for a new read?",
+      "search": {
+        "title": "Search",
+        "subtitle": "Explore and find the book you like the most"
+      },
+      "request": {
+        "title": "Request",
+        "subtitle": "Request a book loan"
+      },
+      "contact": {
+        "title": "Contact",
+        "subtitle": "Get in touch with the owner of the book"
+      },
+      "meet": {
+        "title": "Meet",
+        "subtitle": "Get the book by meeting the owner of the book"
+      }
+    }
+  },
+
+  "navbar": {
+    "explore": "Explore",
+    "my_books": "My books",
+    "lend": "Lend Book",
+    "login": "Log In",
+    "searchbar": {
+      "placeholder": "Search by Author or Title"
+    }
+  },
+
+  "discovery": {
+    "title": "Explore books",
+    "searchbar": {
+      "placeholder": "Search by Author or Title"
+    },
+    "pagination": {
+      "next": "Next",
+      "previous": "Previous"
+    },
+    "sorting":  {
+      "sort_by": "Sort By:",
+      "most_recent": "Most Recent",
+      "least_recent": "Least Recent",
+      "title_asc": "Title Ascending",
+      "title_des": "Title Descending",
+      "author_asc": "Author Ascending",
+      "author_des": "Author Descending"
+    },
+    "books_per_page": {
+      "title": "Books per page: "
+    },
+    "filters": {
+      "language": "Language",
+      "physical_condition": "Physical Condition",
+      "book_rating": "Book Rating",
+      "btn": {
+        "apply": "Apply",
+        "clear": "Clear"
+      }
+    },
+    "no_books": {
+      "title": "No books available",
+      "btn": "Clear search"
+    }
+  },
+  "addAssetView": {
+    "titleLabel": "Title",
+    "nameLabel": "Name",
+    "localityLabel": "Locality",
+    "provinceLabel": "Province",
+    "countryLabel": "Country",
+    "zipcodeLabel": "Zip Code"
+  },
+  "errorMessages": {
+    "name": "Name is required.",
+    "locality": "Locality is required.",
+    "province": "Province is required.",
+    "country": "Country is required.",
+    "zipcode": "Zip code is required."
+  },
+  "newLocation": "Location Details",
+  "save": "Save",
+  "locations": {
+    "title": "Locations",
+    "addLocation": "Add Location",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "not_found": {
+    "tab_title": "Not found",
+    "title": "We're sorry",
+    "subtitle": "We could not find what you were looking for"
+  },
+  "name": "Name",
+  "zipcodeValidationError": "Zipcode must be alphanumeric and between 1 to 100 characters.",
+  "localityValidationError": "Locality must be between 1 to 100 characters.",
+  "provinceValidationError": "Province must be between 4 to 100 characters.",
+  "countryValidationError": "Country must be between 4 to 100 characters.",
+  "nameValidationError": "Name must be between 1 to 100 characters.",
+  "ASNEW": "As new",
+  "FINE": "Fine",
+  "VERYGOOD": "Very good",
+  "GOOD": "Good",
+  "FAIR": "Fair",
+  "POOR": "Poor",
+  "EXLIBRARY": "Ex library",
+  "BOOKCLUB": "Bookclub",
+  "BINDINGCOPY": "Binding copy",
+  "reviews": {
+    "title": "Make a review",
+    "send": "Send Review",
+    "lender": {
+      "user": {
+        "title": "How do you rate {{user}} as a book borrower?",
+        "placeholder": "Add a short description",
+        "error_stars": "Add a rating",
+        "error_text": "The field is mandatory"
+      }
+    },
+    "borrower": {
+      "user": {
+        "title": "How do you rate {{user}} as a book lender? ",
+        "placeholder": "Add a short description",
+        "error_stars": "Add a rating",
+        "error_text": "The field is mandatory"
+      },
+      "book": {
+        "title": "How do you rate the book and its physical condition?",
+        "placeholder": "I loved/hated the book, the cover was damaged",
+        "error_stars": "Add a rating",
+        "error_text": "The field is mandatory"
+      }
+    },
+    "success_modal": {
+      "title": "Review sent successfully!",
+      "subtitle": "",
+      "btn": "Ok"
+    },
+    "error_modal": {
+      "title": "An error has occured!",
+      "subtitle": "",
+      "btn": "Try again"
+    }
+  },
+  "view_asset": {
+    "title": "{{title}} by {{author}}",
+    "by": "By",
+    "language": "Language",
+    "isbn": "ISBN",
+    "lending_btn": "Borrow this book",
+    "start_date": "Start date",
+    "end_date": "Devolution date",
+    "login_btn": "Log in to borrow",
+    "error_no_dates": "Select the dates",
+    "location": {
+      "title": "Where is this book?",
+      "zip_code": "Zip Code",
+      "locality": "Locality",
+      "province": "Province",
+      "country": "Country"
+    },
+    "description": {
+      "title": "Lending Description",
+      "no_description": "There is no description for this publication"
+    },
+    "reviews": {
+      "no_reviews": "There are no reviews for this book",
+      "see_all": "See all reviews"
+    },
+    "success_modal": {
+      "title": "The book lending was requested",
+      "sub_title": "Soon you will receive an e-mail with information about the book lending",
+      "btn_text": "See lending detail"
+    },
+    "error_modal": {
+      "title": "An error has occured!",
+      "sub_title": "",
+      "btn_text": "Try again"
+    }
+  },
+  "view_asset_reviews": {
+    "title": "'{{title}}' reviews"
+  },
+  "addAsset": {
+    "title": "Do you want to lend a book?",
+    "image": {
+        "validation-error": "Please, upload a valid image."
+    },
+    "isbn": {
+        "ISBN": "ISBN",
+        "validation-error": "Please, enter a valid ISBN.",
+        "explanation": "We need the ISBN to find the book you want to borrow. If there's missing information, you can complete it later."
+    },
+    "bookInfo": {
+        "detail": "Book details",
+        "title": "Title",
+        "author": "Author",
+        "language": "Language",
+        "physicalCondition": "Physical condition",
+        "title-validation-error": "Please, enter a valid title.",
+        "author-validation-error": "Please, enter a valid author.",
+        "language-validation-error": "Please, enter a valid language.",
+        "physicalCondition-validation-error": "Please enter a valid physical condition.",
+        "selectLanguage": "Select a language",
+        "description": "Description",
+        "description-validation-error": "Please, enter a valid description."
+    },
+    "duration": {
+        "detail": "Max Borrowing Period",
+        "lendFor": "Lend for",
+        "days": "day/s",
+        "months": "month/s",
+        "weeks": "week/s",
+        "years": "year/s",
+        "acceptsReservations": "Accepts reservations",
+        "validation-error": "Please, enter a valid duration."
+    },
+    "newLender": {
+        "title": "Do you want to start lending books?",
+        "subtitle": "From now on, you will be able to lend books, and within your profile, you can see your books and modify them. To do this, it is necessary to add the default location for your books",
+      "cancel": "I do not want to be a lender"
+    },
+    "modalTitle": "Add new book",
+    "location": {
+        "detail": "Location",
+        "info": "Location Info",
+        "name": "Name",
+      "nama": "Name",
+        "country": "Country",
+        "province": "Province",
+        "locality": "City",
+        "zipcode": "Zip Code",
+        "validation-error": "Please, select a valid location.",
+        "new": "Add new location"
+    }
+  },
+  "reviews_text": "Reviews",
+  "BORROWER": "Borrower",
+  "ASSET_INSTANCE": "Asset",
+  "LENDER": "Lender",
+  "date": "{{month}}/{{day}}/{{year}}",
+  "date_for_calendar": "MM/dd/yyyy",
+  "no_reviews": "No reviews"
+}
